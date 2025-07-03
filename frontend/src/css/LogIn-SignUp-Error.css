@@ -1,0 +1,103 @@
+.FWchatapp {
+  color: #af8e5b;
+  padding: 0.5rem;
+  font-size: 1.75rem;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.vertical {
+  display: flex;
+  flex-direction: column;
+}
+
+.formContainer form {
+  width: 30%;
+  margin-top: 4rem;
+  gap: 2rem;
+  padding: 3rem 2.5rem;
+  color: #fffff4;
+  border-radius: 0.75rem;
+  border: 0.25rem solid #fffff4;
+  font-size: 1.5rem;
+  background: #393e46;
+}
+
+.formContainer input {
+  margin-top: 0.25rem;
+  font-size: 1.75rem;
+  border-radius: 0.75rem;
+  border: none;
+  background: #222831;
+  padding: 0.5rem;
+  color: #fffff4;
+}
+
+.formContainer button {
+  padding: 0.5rem 0.5rem 0.75rem 0.5rem;
+  font-size: 2rem;
+  margin-top: 2rem;
+  border-radius: 0.75rem;
+  border: none;
+  background: #af8e5b;
+  color: #fffff4;
+  cursor: pointer;
+}
+
+.backToLogin {
+  margin-top: 2.25rem;
+  color: #af8e5b;
+  text-decoration: none;
+  font-size: 2rem;
+  border-radius: 0.75rem;
+  padding: 0rem 0.25rem;
+}
+
+.or {
+  font-size: 1.75rem;
+  margin: 2.25rem;
+  color: #fffff4;
+}
+
+.signupButton {
+  color: #af8e5b;
+  text-decoration: none;
+  font-size: 3rem;
+  border-radius: 0.75rem;
+  padding: 0rem 0.25rem;
+}
+
+.loginError {
+  height: 1rem;
+  font-size: 1rem;
+  color: #af8e5b;
+}
+
+.formContainer input:focus-visible {
+  outline: 0.25rem solid #af8e5b;
+}
+.formContainer button:focus-visible,
+.backToLogin:focus-visible,
+.signupButton:focus-visible {
+  outline: 0.25rem solid #fffff4;
+}
+
+.errorMsg {
+  font-size: 1rem;
+  list-style-type: none;
+  color: #af8e5b;
+  margin-bottom: 0.5rem;
+}
+
+/*ERROR PAGE*/
+.errorPage {
+  padding: 0.5rem;
+}
+.errorPage h1 {
+  color: #fffefa;
+  padding: 0.25rem;
+}

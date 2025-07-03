@@ -1,0 +1,9 @@
+.chatContainer {
+  height: 100svh;
+  color: #fffff4;
+}
+
+.content {
+  display: flex;
+  height: 95%;
+}

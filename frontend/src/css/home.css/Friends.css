@@ -1,0 +1,93 @@
+.friendsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  width: 15%;
+}
+.friendsTitle {
+  display: flex;
+  justify-content: space-around;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0px 0px 8px rgb(7, 7, 7);
+}
+.friendsTitle button {
+  color: #fffff4;
+  font-size: 1.5rem;
+  border-radius: 0.35rem;
+  padding-bottom: 0.25rem;
+  width: 100%;
+  border: none;
+  cursor: pointer;
+}
+.selected {
+  background: #af8e5b;
+  transition: 500ms;
+}
+.notselected {
+  background: none;
+}
+.friendsNames,
+.groupNames {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  height: 100%;
+  font-weight: 100;
+  border-radius: 0.5rem;
+  box-shadow: 0px 0px 8px rgb(7, 7, 7);
+  overflow: auto;
+}
+.friendsNames > button,
+.groupNames > button {
+  display: flex;
+  align-items: center;
+  margin: 0.5rem 0;
+  font-size: 2.25rem;
+  height: 1rem;
+  background: none;
+  color: #fffff4;
+  border: none;
+  cursor: pointer;
+  width: fit-content;
+}
+.friendsNames > form > input,
+.groupNames > form > input {
+  width: 100%;
+  font-size: 1rem;
+  background: #fffff4;
+  border-radius: 0.25rem;
+  border: none;
+  padding: 0.5rem;
+  color: #222831;
+}
+.friendsNames > form > button,
+.groupNames > form > button {
+  width: 100%;
+  margin: 0.75rem 0;
+  padding: 0.25rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+  border-radius: 0.25rem;
+  background: #af8e5b;
+  color: #fffff4;
+  border: none;
+  cursor: pointer;
+}
+
+.friends-groups-list {
+  font-size: 1rem;
+  list-style-type: none;
+  color: #fffff4;
+  margin-bottom: 0.25rem;
+}
+
+.friendsNames input:focus-visible,
+.groupNames input:focus-visible {
+  outline: 0.125rem solid #af8e5b;
+}
+.friendsTitle button:focus-visible {
+  outline: 0.125rem solid;
+}

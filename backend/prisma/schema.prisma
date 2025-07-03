@@ -1,0 +1,75 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String       @id @default(cuid())
+  username String       @unique
+  password String
+  refToken String?
+  friends  Friends[]
+  groups   UserGroups[]
+}
+
+model FriendReq {
+  fromUserId String
+  fromUser   String
+  toUser     String
+
+  @@unique([fromUser, toUser])
+}
+
+model Friends {
+  user     User   @relation(fields: [userId], references: [id])
+  userId   String
+  friend   String
+  friendId String
+
+  @@unique([userId, friendId])
+}
+
+model UserMessages {
+  id         String   @id @default(cuid())
+  message    String
+  senderId   String
+  receiverId String
+  createdAt  DateTime @default(now())
+}
+
+model GroupReq {
+  id        String @id @default(cuid())
+  from      String
+  groupId   String
+  groupName String
+  to        String
+
+  @@unique([from, groupId, to])
+}
+
+model Groups {
+  id      String       @id @default(cuid())
+  name    String
+  members UserGroups[]
+}
+
+model UserGroups {
+  id      String @id @default(cuid())
+  user    User   @relation(fields: [userId], references: [id])
+  userId  String
+  group   Groups @relation(fields: [groupId], references: [id])
+  groupId String
+
+  @@unique([userId, groupId])
+}
