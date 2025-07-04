@@ -8,8 +8,8 @@ function FriendReq({ user, token, setToken }) {
   const [friendReqs, setFriendReqs] = useState([])
   const [searchForFriendReqs, setSearchForFriendReqs] = useState(true)
 
-  console.log(token)
-  console.log(user)
+  //   console.log(token)
+  //   console.log(user)
 
   useEffect(() => {
     searchFriendReq()
@@ -17,7 +17,7 @@ function FriendReq({ user, token, setToken }) {
 
   async function searchFriendReq() {
     try {
-      const response = await fetch(`http://localhost:3000/getFriendRequests/${location.state.user.username}`, {
+      const response = await fetch(`http://localhost:3000/getFriendRequests/${user.username}`, {
         headers: {
           "Content-Type": "application/json",
         },

@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react"
 import { useLocation, useNavigate } from "react-router"
 import newAccessToken from "../../functions/refreshToken"
 import Navbar from "../Navbar"
-import Friends from "./Friends"
+import FriendsGroups from "./Friends-Groups"
 import Chat from "./Chat"
 import "../../css/home.css/Home.css"
 
@@ -11,10 +11,10 @@ function Home() {
   const [token, setToken] = useState("")
   const [error, setError] = useState(``)
   const [loading, setLoading] = useState(true)
-  const [user, setUser] = useState({})
-  const [friends, setFriends] = useState([])
-  const [groups, setGroups] = useState([])
-
+  const [userData, setUserData] = useState()
+  // console.log(user)
+  // console.log(friends)
+  // console.log(groups)
   //console.log(location)
   // const rendersNo = useRef(0)
   // console.log(location.state)
@@ -54,10 +54,8 @@ function Home() {
         return
       }
       const data = await response.json()
-      console.log(data.userData)
-      setUser(data.userData)
-      setFriends(data.userData.friends)
-      setGroups(data.userData.groups)
+
+      setUserData(data.userData)
     } catch (error) {
       setError(error)
     } finally {
@@ -77,9 +75,9 @@ function Home() {
 
   return (
     <div className="chatContainer">
-      <Navbar user={user} />
+      <Navbar userData={userData} />
       <div className="content">
-        <Friends user={user} friends={friends} groups={groups} token={token} setToken={setToken} />
+        <FriendsGroups userData={userData} token={token} setToken={setToken} />
         <Chat />
       </div>
     </div>

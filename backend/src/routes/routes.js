@@ -18,9 +18,15 @@ routes.post("/sendFriendRequest", authenticateToken, home.postFriendRequest)
 routes.get("/getFriendRequests/:toUser", home.getFriendRequests)
 //ADD FRIEND
 routes.post("/addFriend", authenticateToken, home.postFriend)
-//ADD FRIEND
+//DELETE FRIEND REQ
 routes.delete("/denyFriend", authenticateToken, home.denyFriend)
 //CREATE NEW ACCESS TOKEN
 routes.get("/refreshToken", refreshToken.handleRefreshToken)
+//CREATE GROUP
+routes.post("/createGroup", authenticateToken, home.createGroup)
+//SEND GROUP REQUEST
+routes.post("/sendGroupRequest", authenticateToken, home.postGroupRequest)
+//GET GROUP REQUEST
+routes.get("/getFriendRequests/:toUser", home.getGroupRequests)
 
 module.exports = routes

@@ -17,6 +17,7 @@ function Profile() {
   return (
     <>
       <FriendReq user={user} token={token} setToken={setToken} />
+      <GroupReq user={user} token={token} setToken={setToken} />
     </>
   )
 }
