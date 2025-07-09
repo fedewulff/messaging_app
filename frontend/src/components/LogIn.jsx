@@ -1,13 +1,14 @@
 import { useState } from "react"
-import { NavLink, useNavigate } from "react-router"
+import { NavLink, useNavigate, useLocation } from "react-router"
 import "../css/LogIn-SignUp-Error.css"
 
 function LogIn() {
+  const location = useLocation()
   const navigate = useNavigate()
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [errorMessage, setErrorMessage] = useState("")
-
+  console.log(location.state)
   async function login(e) {
     e.preventDefault()
     try {

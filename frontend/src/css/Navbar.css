@@ -4,7 +4,7 @@
   justify-content: space-between;
   align-items: center;
   font-size: 1.5rem;
-  color: #af8e5b;
+  color: var(--yellow);
   padding: 0.5rem;
 
   height: 5%;
@@ -18,7 +18,7 @@
 
 .navbar svg {
   height: 2.5rem;
-  fill: #af8e5b;
+  fill: var(--yellow);
   flex-shrink: 0;
   padding: 0;
 }
@@ -28,7 +28,7 @@
   flex-direction: column;
   gap: 0.5rem;
   padding: 1rem;
-  background: #af8e5b;
+  background: var(--yellow);
   overflow: hidden;
   border-radius: 0.5rem;
   width: 12rem;
@@ -36,16 +36,17 @@
   top: 1px;
   right: -12rem;
   transition: 500ms ease-out;
-  box-shadow: 0px 0px 8px rgb(7, 7, 7);
+  box-shadow: 0px 0px 12px rgb(0, 0, 0);
 }
 .nav-menu.active {
   right: 1px;
   transition: 500ms ease-out;
 }
 .btn-close-navbar,
+.btn-to-home,
 .btn-to-profile,
 .btn-to-logout {
-  color: #fffff4;
+  color: var(--white);
   font-size: 1.25rem;
   cursor: pointer;
   border: none;
@@ -54,14 +55,16 @@
 .btn-to-logout {
   background: none;
 }
+.btn-to-home,
 .btn-to-profile,
 .btn-to-logout {
   padding: 0.5rem;
   border-radius: 0.3rem;
 }
+.btn-to-home:hover,
 .btn-to-profile:hover,
 .btn-to-logout:hover {
-  background: #222831;
+  background: var(--blue);
 }
 .btn-close-navbar {
   margin-left: auto;
@@ -69,8 +72,9 @@
   margin-bottom: 1rem;
 }
 .btn-close-navbar:hover {
-  color: #222831;
+  color: var(--blue);
 }
+.btn-to-home,
 .btn-to-profile {
   text-decoration: none;
 }

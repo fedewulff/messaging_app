@@ -8,30 +8,17 @@ import "../../css/home.css/Home.css"
 
 function Home() {
   const location = useLocation()
+  const navigate = useNavigate()
   const [token, setToken] = useState("")
   const [error, setError] = useState(``)
   const [loading, setLoading] = useState(true)
   const [userData, setUserData] = useState()
-  // console.log(user)
-  // console.log(friends)
-  // console.log(groups)
-  //console.log(location)
-  // const rendersNo = useRef(0)
-  // console.log(location.state)
-  // console.log(token)
-  // useEffect(() => {
-  //   rendersNo.current++
-  //   console.log(`Component rendered ${rendersNo.current} times`)
-  // })
+  const [chat, setChat] = useState({})
 
   useEffect(() => {
     getUserData(token)
   }, [])
 
-  if (token === "logout") {
-    navigate("/")
-    return
-  }
   if (location.state && !token) {
     setToken(location.state.token)
     return
@@ -54,7 +41,6 @@ function Home() {
         return
       }
       const data = await response.json()
-
       setUserData(data.userData)
     } catch (error) {
       setError(error)
@@ -72,13 +58,14 @@ function Home() {
       navigate("/")
     }
   }
+  if (!userData || !token) return
 
   return (
     <div className="chatContainer">
-      <Navbar userData={userData} />
+      <Navbar userData={userData} setToken={setToken} />
       <div className="content">
-        <FriendsGroups userData={userData} token={token} setToken={setToken} />
-        <Chat />
+        <FriendsGroups userData={userData} token={token} setToken={setToken} setChat={setChat} />
+        <Chat chat={chat} userId={userData.id} token={token} setToken={setToken} />
       </div>
     </div>
   )

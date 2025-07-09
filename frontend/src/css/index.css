@@ -4,6 +4,12 @@
   padding: 0;
   font-family: "Funnel Display", sans-serif;
 }
+:root {
+  --blue: #2c333f;
+  --yellow: #bd9252;
+  --white: #fffff4;
+  --light-blue: #626c7c;
+}
 body {
-  background: #222831;
+  background: var(--blue);
 }

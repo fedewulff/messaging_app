@@ -20,11 +20,11 @@
   margin-top: 4rem;
   gap: 2rem;
   padding: 3rem 2.5rem;
-  color: #fffff4;
+  color: var(--white);
   border-radius: 0.75rem;
-  border: 0.25rem solid #fffff4;
+  border: 0.25rem solid var(--white);
   font-size: 1.5rem;
-  background: #393e46;
+  background: var(--blue);
 }
 
 .formContainer input {
@@ -32,9 +32,9 @@
   font-size: 1.75rem;
   border-radius: 0.75rem;
   border: none;
-  background: #222831;
+  background: var(--blue);
   padding: 0.5rem;
-  color: #fffff4;
+  color: var(--white);
 }
 
 .formContainer button {
@@ -43,14 +43,14 @@
   margin-top: 2rem;
   border-radius: 0.75rem;
   border: none;
-  background: #af8e5b;
-  color: #fffff4;
+  background: var(--yellow);
+  color: var(--white);
   cursor: pointer;
 }
 
 .backToLogin {
   margin-top: 2.25rem;
-  color: #af8e5b;
+  color: var(--yellow);
   text-decoration: none;
   font-size: 2rem;
   border-radius: 0.75rem;
@@ -60,11 +60,11 @@
 .or {
   font-size: 1.75rem;
   margin: 2.25rem;
-  color: #fffff4;
+  color: var(--white);
 }
 
 .signupButton {
-  color: #af8e5b;
+  color: var(--yellow);
   text-decoration: none;
   font-size: 3rem;
   border-radius: 0.75rem;
@@ -74,22 +74,22 @@
 .loginError {
   height: 1rem;
   font-size: 1rem;
-  color: #af8e5b;
+  color: var(--yellow);
 }
 
 .formContainer input:focus-visible {
-  outline: 0.25rem solid #af8e5b;
+  outline: 0.25rem solid var(--yellow);
 }
 .formContainer button:focus-visible,
 .backToLogin:focus-visible,
 .signupButton:focus-visible {
-  outline: 0.25rem solid #fffff4;
+  outline: 0.25rem solid var(--white);
 }
 
 .errorMsg {
   font-size: 1rem;
   list-style-type: none;
-  color: #af8e5b;
+  color: var(--yellow);
   margin-bottom: 0.5rem;
 }
 
@@ -98,6 +98,6 @@
   padding: 0.5rem;
 }
 .errorPage h1 {
-  color: #fffefa;
+  color: var(--white);
   padding: 0.25rem;
 }

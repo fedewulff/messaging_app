@@ -4,9 +4,9 @@ const jwt = require("jsonwebtoken")
 module.exports.handleRefreshToken = async (req, res) => {
   if (!req.cookies.jwtRefToken) return res.sendStatus(401)
   const refreshToken = req.cookies.jwtRefToken
-  const userExists = prisma.user.findUnique({
+  const userExists = await prisma.user.findFirst({
     where: {
-      refreshToken: refreshToken,
+      refToken: refreshToken,
     },
   })
   if (!userExists) return res.sendStatus(403)

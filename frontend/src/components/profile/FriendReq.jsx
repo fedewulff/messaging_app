@@ -8,9 +8,6 @@ function FriendReq({ user, token, setToken }) {
   const [friendReqs, setFriendReqs] = useState([])
   const [searchForFriendReqs, setSearchForFriendReqs] = useState(true)
 
-  //   console.log(token)
-  //   console.log(user)
-
   useEffect(() => {
     searchFriendReq()
   }, [searchForFriendReqs])
@@ -89,14 +86,17 @@ function FriendReq({ user, token, setToken }) {
   }
 
   return (
-    <div>
-      <div className="usernameProfile">Username: {user.username}</div>
+    <div className="friendReq-container">
+      <div>Friend requests:</div>
+      {!friendReqs[0] && <div className="no-request">No friend requests</div>}
       <ul>
         {friendReqs.map((friendReq, index) => (
           <li key={index} className="friendsReq-list">
-            {friendReq.fromUser}
-            <button onClick={() => acceptFriend(token, user.username, friendReq.fromUser, user.id, friendReq.fromUserId)}>Accept</button>
-            <button onClick={() => deleteFriendReq(token, user.username, friendReq.fromUser)}>Deny</button>
+            <div>From: {friendReq.fromUser}</div>
+            <div className="friendReq-groupReq-buttons">
+              <button onClick={() => acceptFriend(token, user.username, friendReq.fromUser, user.id, friendReq.fromUserId)}>Accept</button>
+              <button onClick={() => deleteFriendReq(token, user.username, friendReq.fromUser)}>Deny</button>
+            </div>
           </li>
         ))}
       </ul>

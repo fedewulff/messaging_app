@@ -2,7 +2,7 @@ import { useState } from "react"
 import { useLocation, useNavigate } from "react-router"
 import newAccessToken from "../../../functions/refreshToken"
 
-function Groups({ user, friends, groups, token, setToken }) {
+function Groups({ user, friends, groups, token, setToken, setChat }) {
   const navigate = useNavigate()
   const [showCreateGroup, setShowCreateGroup] = useState(false)
   const [newGroupName, setNewGroupName] = useState("")
@@ -33,12 +33,12 @@ function Groups({ user, friends, groups, token, setToken }) {
       })
       if (response.status === 403) {
         console.error("403-Forbidden access, getting refresh token")
-        refreshToken(e, "createGroup", myId, myUsername, groupName, friendsToInvite)
+        refreshToken(e, myId, myUsername, groupName, friendsToInvite)
         return
       }
       const data = await response.json()
-      console.log(data)
-
+      setNewGroupName("")
+      setFriendsCheckboxes((prevFriendsCheckboxes) => prevFriendsCheckboxes.map((friendBox) => ({ ...friendBox, isChecked: false })))
       if (!response.ok) {
         console.error("error")
       }
@@ -46,49 +46,46 @@ function Groups({ user, friends, groups, token, setToken }) {
       console.error("Network error:", error)
     }
   }
-  async function sendGroupReq(token) {
-    try {
-      const response = await fetch("http://localhost:3000/sendGroupRequest", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ username: user.username, addFriendName }),
-      })
-      if (response.status === 403) {
-        console.error("403-Forbidden access, getting refresh token")
-        refreshToken(e, "friendReq")
-        return
-      }
-      const data = await response.json()
-      console.log(data)
-
-      if (!response.ok) {
-        console.error("error")
-      }
-    } catch (error) {
-      console.error("Network error:", error)
-    }
-  }
-  async function refreshToken(e, value, myId, myUsername, groupName, friendsToInvite) {
+  async function refreshToken(e, myId, myUsername, groupName, friendsToInvite) {
     try {
       const accessToken = await newAccessToken()
-      console.log(accessToken)
-      console.log(value)
-      if (value === "friendReq") {
-        sendFriendReq(e, accessToken)
-      }
-      if (value === "createGroup") {
-        createGroup(e, accessToken, myId, myUsername, groupName, friendsToInvite)
-      }
+
+      createGroup(e, accessToken, myId, myUsername, groupName, friendsToInvite)
+
       setToken(accessToken)
     } catch (error) {
       console.error("403-Forbidden access, must log in again")
       navigate("/")
     }
   }
+  //   async function sendGroupReq(token) {
+  //     try {
+  //       const response = await fetch("http://localhost:3000/sendGroupRequest", {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //         body: JSON.stringify({ username: user.username, addFriendName }),
+  //       })
+  //       if (response.status === 403) {
+  //         console.error("403-Forbidden access, getting refresh token")
+  //         refreshToken(e, "friendReq")
+  //         return
+  //       }
+  //       const data = await response.json()
+  //       console.log(data)
 
+  //       if (!response.ok) {
+  //         console.error("error")
+  //       }
+  //     } catch (error) {
+  //       console.error("Network error:", error)
+  //     }
+  //   }
+  // function showData(groupChat) {
+  //   setChat(groupChat)
+  // }
   return (
     <div className="groupNames">
       {!showCreateGroup && <button onClick={showCreateGroupFc}>+</button>}
@@ -106,8 +103,9 @@ function Groups({ user, friends, groups, token, setToken }) {
             onChange={(e) => setNewGroupName(e.target.value)}
             required
           />
+          {friends[0] && <div className="invite-friends">Invite friends:</div>}
           {friendsCheckboxes.map((friendBox, index) => (
-            <div key={index}>
+            <div key={index} className="checkbox-container ">
               <input
                 type="checkbox"
                 id={friendBox.friendId}
@@ -115,19 +113,22 @@ function Groups({ user, friends, groups, token, setToken }) {
                 checked={friendBox.isChecked}
                 onChange={() => handleCheckboxChange(friendBox.friendId)}
               />
+              <span className="checkmark"></span>
               <label htmlFor={friendBox.friendId}>{friendBox.friend}</label>
             </div>
           ))}
           <button>Create group</button>
         </form>
       )}
-      <ul>
-        {groups.map((group, index) => (
-          <li key={index} className="friends-groups-list">
-            {group.group.name}
-          </li>
-        ))}
-      </ul>
+      {!showCreateGroup && (
+        <ul>
+          {groups.map((group, index) => (
+            <li key={index} className="friends-groups-list" onClick={() => setChat(group)}>
+              {group.group.name}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   )
 }

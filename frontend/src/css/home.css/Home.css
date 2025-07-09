@@ -1,6 +1,6 @@
 .chatContainer {
   height: 100svh;
-  color: #fffff4;
+  color: var(--whites);
 }
 
 .content {

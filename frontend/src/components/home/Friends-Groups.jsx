@@ -3,21 +3,20 @@ import { useLocation, useNavigate } from "react-router"
 import newAccessToken from "../../functions/refreshToken"
 import Friends from "./friends-groups/friends"
 import Groups from "./friends-groups/groups"
-import "../../css/home.css/Friends.css"
+import "../../css/home.css/friends-groups.css"
 
-function FriendsGroups({ userData, token, setToken }) {
+function FriendsGroups({ userData, token, setToken, setChat }) {
   const [user, setUser] = useState()
   const [friends, setFriends] = useState([])
   const [groups, setGroups] = useState([])
 
-  if (userData && !friends[0] && !groups[0]) {
+  if (!user) {
     setUser({ id: userData.id, username: userData.username })
     setFriends(userData.friends)
     setGroups(userData.groups)
   }
 
   const [showFriendsList, setShowFriendsList] = useState(true)
-  //console.log(user)
 
   const showFriendsListFc = () => setShowFriendsList(!showFriendsList)
 
@@ -31,8 +30,8 @@ function FriendsGroups({ userData, token, setToken }) {
           Groups
         </button>
       </div>
-      {showFriendsList && <Friends user={user} friends={friends} token={token} setToken={setToken} />}
-      {!showFriendsList && <Groups user={user} friends={friends} groups={groups} token={token} setToken={setToken} />}
+      {showFriendsList && <Friends user={user} friends={friends} token={token} setToken={setToken} setChat={setChat} />}
+      {!showFriendsList && <Groups user={user} friends={friends} groups={groups} token={token} setToken={setToken} setChat={setChat} />}
     </div>
   )
 }

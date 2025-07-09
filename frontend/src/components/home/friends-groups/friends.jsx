@@ -2,7 +2,7 @@ import { useState } from "react"
 import { useLocation, useNavigate } from "react-router"
 import newAccessToken from "../../../functions/refreshToken"
 
-function Friends({ user, friends, token, setToken }) {
+function Friends({ user, friends, token, setToken, setChat }) {
   const navigate = useNavigate()
   const [addFriendName, setAddFriendName] = useState("")
   const [showAddFriend, setShowAddFriend] = useState(false)
@@ -25,6 +25,7 @@ function Friends({ user, friends, token, setToken }) {
         return
       }
       const data = await response.json()
+      setAddFriendName("")
       console.log(data)
 
       if (!response.ok) {
@@ -47,6 +48,9 @@ function Friends({ user, friends, token, setToken }) {
       navigate("/")
     }
   }
+  // function showData(friendChat) {
+  //   setChat(friendChat)
+  // }
 
   return (
     <div className="friendsNames">
@@ -60,6 +64,7 @@ function Friends({ user, friends, token, setToken }) {
             id="addFriend"
             name="addFriend"
             autoComplete="off"
+            placeholder="friend's username"
             value={addFriendName}
             onChange={(e) => setAddFriendName(e.target.value)}
             required
@@ -69,7 +74,7 @@ function Friends({ user, friends, token, setToken }) {
       )}
       <ul>
         {friends.map((friend, index) => (
-          <li key={index} className="friends-groups-list">
+          <li key={index} className="friends-groups-list" onClick={() => setChat(friend)}>
             {friend.friend}
           </li>
         ))}

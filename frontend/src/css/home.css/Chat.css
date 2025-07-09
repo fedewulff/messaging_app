@@ -21,11 +21,31 @@
   font-size: 1.5rem;
   padding: 0.5rem;
   border-radius: 0.5rem;
-  background: #393e46;
+  color: var(--white);
+  background: var(--light-blue);
   box-shadow: 0px 0px 8px rgb(7, 7, 7);
 }
 .conv {
   height: 100%;
+}
+.conv ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.my-message,
+.friend-message {
+  list-style-type: none;
+  width: fit-content;
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.5rem;
+}
+.my-message {
+  background: var(--blue);
+  margin-left: auto;
+}
+.friend-message {
+  background: var(--yellow);
 }
 .convContainer form {
   display: flex;
@@ -40,9 +60,9 @@
   margin-right: 0.75rem;
   border-radius: 0.25rem;
   border: none;
-  background: #fffff4;
+  background: var(--white);
   padding: 0.5rem;
-  color: #222831;
+  color: var(--blue);
 }
 .convContainer button {
   background: none;
@@ -51,10 +71,11 @@
 }
 .convContainer svg {
   height: 2rem;
-  fill: #af8e5b;
+  fill: var(--yellow);
   flex-shrink: 0;
   padding: 0;
 }
+
 .convContainer textarea:focus-visible {
-  outline: 0.125rem solid #af8e5b;
+  outline: 0.125rem solid var(--yellow);
 }

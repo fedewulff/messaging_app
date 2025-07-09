@@ -1,12 +1,31 @@
 import { useState } from "react"
-import { useLocation, NavLink } from "react-router"
+import { useLocation, NavLink, useNavigate } from "react-router"
 import "../css/Navbar.css"
 
-function Navbar({ user }) {
+function Navbar({ userData, setToken }) {
   const location = useLocation()
+  const navigate = useNavigate()
   const [sidebar, setSidebar] = useState(false)
 
   const sidebarFc = () => setSidebar(!sidebar)
+
+  async function logOut() {
+    try {
+      const response = await fetch("http://localhost:3000/logout", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      })
+      setToken("logout")
+      if (response.ok) {
+        navigate("/", { state: null })
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   return (
     <>
@@ -23,10 +42,15 @@ function Navbar({ user }) {
         <button className="btn-close-navbar" onClick={sidebarFc}>
           X
         </button>
-        <NavLink to={"/profile"} className="nav-text btn-to-profile" state={{ ...location.state, user: user }}>
+        <NavLink to={"/home"} className="nav-text btn-to-home">
+          Home
+        </NavLink>
+        <NavLink to={"/profile"} className="nav-text btn-to-profile" state={{ ...location.state, userData: userData }}>
           Profile
         </NavLink>
-        <button className="nav-text btn-to-logout">Log Out</button>
+        <button onClick={logOut} className="nav-text btn-to-logout">
+          Log Out
+        </button>
       </div>
     </>
   )

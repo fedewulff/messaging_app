@@ -26,6 +26,7 @@ const router = createBrowserRouter([
   {
     path: "/profile",
     element: <Profile />,
+    errorElement: <ErrorPage />,
   },
   // {
   //   path: "/admin-profile/post/:postId",
