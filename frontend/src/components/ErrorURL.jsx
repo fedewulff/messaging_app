@@ -1,6 +1,6 @@
 import { NavLink } from "react-router"
 
-const ErrorPage = () => {
+const ErrorURL = () => {
   return (
     <div className="errorPage">
       <h1>Oh no, this route doesn't exist!</h1>
@@ -11,4 +11,4 @@ const ErrorPage = () => {
   )
 }
 
-export default ErrorPage
+export default ErrorURL

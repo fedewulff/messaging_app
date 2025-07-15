@@ -40,12 +40,21 @@ model Friends {
   @@unique([userId, friendId])
 }
 
-model UserMessages {
+model UserFriendMessages {
   id         String   @id @default(cuid())
   message    String
   senderId   String
   receiverId String
   createdAt  DateTime @default(now())
+}
+
+model UserGroupMessages {
+  id             String   @id @default(cuid())
+  message        String
+  senderId       String
+  senderUsername String
+  receiverId     String
+  createdAt      DateTime @default(now())
 }
 
 model GroupReq {

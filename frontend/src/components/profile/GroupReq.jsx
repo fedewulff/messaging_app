@@ -9,21 +9,20 @@ function GroupReq({ user, token, setToken }) {
   const [searchForGroupReqs, setSearchForGroupReqs] = useState(true)
 
   useEffect(() => {
-    searchGroupReq()
+    searchGroupReq(token)
   }, [searchForGroupReqs])
 
-  async function searchGroupReq(token) {
+  async function searchGroupReq(accToken) {
     try {
       const response = await fetch(`http://localhost:3000/getGroupRequests/${user.username}`, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${accToken}`,
         },
       })
       const data = await response.json()
       if (response.status === 403) {
-        console.error("403-Forbidden access, getting refresh token")
-        refreshToken("searchGroupReq", token)
+        refreshToken("searchGroupReq")
         return
       }
       setGroupReqs(data.groupReq)
@@ -32,7 +31,6 @@ function GroupReq({ user, token, setToken }) {
     }
   }
   async function acceptGroupReq(token, myId, groupId, groupReqId) {
-    console.log(groupReqId)
     try {
       const response = await fetch("http://localhost:3000/acceptGroupInvite", {
         method: "POST",
@@ -43,18 +41,15 @@ function GroupReq({ user, token, setToken }) {
         body: JSON.stringify({ myId, groupId }),
       })
       if (response.status === 403) {
-        console.error("403-Forbidden access, getting refresh token")
-        refreshToken("acceptGroup", myId, groupId)
+        refreshToken("acceptGroup", myId, groupId, groupReqId)
         return
       }
-      const data = await response.json()
       deleteGroupReq(token, groupReqId)
     } catch (error) {
       console.error("Network error:", error)
     }
   }
   async function deleteGroupReq(token, groupReqId) {
-    console.log(groupReqId)
     try {
       const response = await fetch("http://localhost:3000/rejectGroupInvite", {
         method: "DELETE",
@@ -65,18 +60,15 @@ function GroupReq({ user, token, setToken }) {
         body: JSON.stringify({ groupReqId }),
       })
       if (response.status === 403) {
-        console.error("403-Forbidden access, getting refresh token")
         refreshToken("rejectGroup", groupReqId)
         return
       }
-      const data = await response.json()
       setSearchForGroupReqs(!searchForGroupReqs)
-      console.log(data)
     } catch (error) {
       console.error("Network error:", error)
     }
   }
-  async function refreshToken(value, val1, val2) {
+  async function refreshToken(value, val1, val2, val3) {
     try {
       const accessToken = await newAccessToken()
 
@@ -84,12 +76,11 @@ function GroupReq({ user, token, setToken }) {
         searchGroupReq(accessToken)
       }
       if (value === "acceptGroup") {
-        acceptGroupReq(accessToken, val1, val2)
+        acceptGroupReq(accessToken, val1, val2, val3)
       }
       if (value === "rejectGroup") {
         deleteGroupReq(accessToken, val1)
       }
-
       setToken(accessToken)
     } catch (error) {
       console.error("403-Forbidden access, must log in again")
@@ -98,14 +89,14 @@ function GroupReq({ user, token, setToken }) {
   }
   return (
     <div className="groupRec-container">
-      <div>Group requests:</div>
+      <div className="friend-group-requests">Group requests:</div>
       {!groupReqs[0] && <div className="no-request">No group requests</div>}
       <ul>
         {groupReqs.map((groupReq, index) => (
           <li key={index} className="groupsReq-list">
             <div>
-              <div>From: {groupReq.from}</div>
-              <div>Group name: {groupReq.groupName}</div>
+              <div className="groupReq-list-name">From: {groupReq.from}</div>
+              <div className="groupReq-list-groupName">Group name: {groupReq.groupName}</div>
             </div>
 
             <div className="friendReq-groupReq-buttons">

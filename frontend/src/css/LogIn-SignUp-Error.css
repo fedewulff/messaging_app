@@ -32,9 +32,19 @@
   font-size: 1.75rem;
   border-radius: 0.75rem;
   border: none;
-  background: var(--blue);
+
   padding: 0.5rem;
-  color: var(--white);
+  color: var(--blue);
+}
+.input-requirements {
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+.valid-input {
+  background: var(--white);
+}
+.not-valid-input {
+  background: rgb(212, 102, 102);
 }
 
 .formContainer button {

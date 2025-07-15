@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router"
 import "./css/index.css"
 //import App from "./components/App"
 import LogIn from "./components/LogIn"
-import ErrorPage from "./components/ErrorPage"
+import ErrorURL from "./components/ErrorURL"
 import SignUp from "./components/SignUp"
 import Home from "./components/home/Home"
 import Profile from "./components/profile/Profile"
@@ -13,7 +13,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <LogIn />,
-    errorElement: <ErrorPage />,
+    errorElement: <ErrorURL />,
   },
   {
     path: "/signup",
@@ -26,7 +26,7 @@ const router = createBrowserRouter([
   {
     path: "/profile",
     element: <Profile />,
-    errorElement: <ErrorPage />,
+    errorElement: <ErrorURL />,
   },
   // {
   //   path: "/admin-profile/post/:postId",

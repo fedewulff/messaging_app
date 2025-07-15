@@ -20,7 +20,7 @@ exports.postFriendRequest = async (req, res) => {
       toUser: req.body.addFriendName,
     },
   })
-  res.json({ msg: "Friend request sent" })
+  res.sendStatus(204)
 }
 //GET FRIEND REQUESTS
 exports.getFriendRequests = async (req, res) => {
@@ -31,6 +31,14 @@ exports.getFriendRequests = async (req, res) => {
 }
 //ADD FRIEND
 exports.postFriend = async (req, res) => {
+  const friendExists = await prisma.friends.findUnique({
+    where: { userId_friendId: { userId: req.body.myId, friendId: req.body.friendId } },
+  })
+  if (friendExists) {
+    res.json({ msg: "already friends" })
+    return
+  }
+
   await prisma.friends.createMany({
     data: [
       {
@@ -45,7 +53,7 @@ exports.postFriend = async (req, res) => {
       },
     ],
   })
-  res.json({ msg: "friend added" })
+  res.sendStatus(204)
 }
 //DELETE FRIEND
 exports.denyFriend = async (req, res) => {
@@ -54,27 +62,9 @@ exports.denyFriend = async (req, res) => {
       fromUser_toUser: { fromUser: req.body.friendUsername, toUser: req.body.myUsername },
     },
   })
-  res.json({ msg: "friend request deleted" })
+  res.sendStatus(204)
 }
 
-//GET FRIEND REQUESTS
-// exports.getGroupRequests = async (req, res) => {
-//   const friendReq = await prisma.groupReq.findMany({
-//     where: { to: req.params.toUser },
-//   })
-//   res.json({ friendReq })
-// }
-//SEND GROUP REQUEST
-// exports.postGroupRequest = async (req, res) => {
-//   await prisma.friendReq.create({
-//     data: {
-//       fromUserId: req.user,
-//       fromUser: req.body.username,
-//       toUser: req.body.addFriendName,
-//     },
-//   })
-//   res.json({ msg: "Group request sent" })
-// }
 //CREATE GROUP AND SEND INVITES
 exports.createGroup = async (req, res) => {
   const group = await prisma.groups.create({
@@ -86,21 +76,18 @@ exports.createGroup = async (req, res) => {
     },
   })
 
-  if (group) {
-    for (let i = 0; i < req.body.friendsToInvite.length; i++) {
-      await prisma.groupReq.create({
-        data: {
-          from: req.body.myUsername,
-          groupId: group.id,
-          groupName: group.name,
-          to: req.body.friendsToInvite[i].friend,
-        },
-      })
-    }
-    res.json({ msg: "Group created and requests sent" })
-    return
+  for (let i = 0; i < req.body.friendsToInvite.length; i++) {
+    await prisma.groupReq.create({
+      data: {
+        from: req.body.myUsername,
+        groupId: group.id,
+        groupName: group.name,
+        to: req.body.friendsToInvite[i].friend,
+      },
+    })
   }
-  res.json({ msg: "group created" })
+
+  res.sendStatus(204)
 }
 //GET GROUP INVITES
 module.exports.getGroupRequests = async (req, res) => {
@@ -117,10 +104,10 @@ module.exports.acceptGroupInvite = async (req, res) => {
       groupId: req.body.groupId,
     },
   })
-  res.json({ msg: "group joined" })
+  res.sendStatus(204)
 }
 //REJECT AND DELETE GROUP INVITE
 module.exports.rejectGroupInvite = async (req, res) => {
   await prisma.groupReq.delete({ where: { id: req.body.groupReqId } })
-  res.json({ msg: "group rejected and invite deleted" })
+  res.sendStatus(204)
 }

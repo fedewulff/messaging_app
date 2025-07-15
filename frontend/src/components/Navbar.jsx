@@ -2,7 +2,7 @@ import { useState } from "react"
 import { useLocation, NavLink, useNavigate } from "react-router"
 import "../css/Navbar.css"
 
-function Navbar({ userData, setToken }) {
+function Navbar() {
   const location = useLocation()
   const navigate = useNavigate()
   const [sidebar, setSidebar] = useState(false)
@@ -18,7 +18,7 @@ function Navbar({ userData, setToken }) {
         },
         credentials: "include",
       })
-      setToken("logout")
+
       if (response.ok) {
         navigate("/", { state: null })
       }
@@ -30,7 +30,7 @@ function Navbar({ userData, setToken }) {
   return (
     <>
       <nav className="navbar">
-        <div>Fede Wulff</div>
+        <div>FW chat app</div>
         <button onClick={sidebarFc}>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <title>menu</title>
@@ -45,7 +45,7 @@ function Navbar({ userData, setToken }) {
         <NavLink to={"/home"} className="nav-text btn-to-home">
           Home
         </NavLink>
-        <NavLink to={"/profile"} className="nav-text btn-to-profile" state={{ ...location.state, userData: userData }}>
+        <NavLink to={"/profile"} className="nav-text btn-to-profile">
           Profile
         </NavLink>
         <button onClick={logOut} className="nav-text btn-to-logout">

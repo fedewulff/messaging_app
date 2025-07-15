@@ -9,7 +9,7 @@ module.exports.adminProfile = (req, res) => {
 }
 
 //LOG IN
-module.exports.adminLogInPost = async (req, res) => {
+module.exports.login = async (req, res) => {
   const { username, password } = req.body
   if (!username || !password) return res.status(400).json({ message: "Username and password are required" })
 

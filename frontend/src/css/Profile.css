@@ -18,8 +18,8 @@
 .groupRec-container {
   margin: 1.5rem 0;
 }
-.friendReq-container :first-child,
-.groupRec-container :first-child {
+.friend-group-requests,
+.friend-group-requests {
   font-size: 1.5rem;
 }
 .no-request {
@@ -31,7 +31,7 @@
   background: #179dac;
 }
 .groupsReq-list {
-  background: #33bd55;
+  background: #651da8;
 }
 .friendsReq-list,
 .groupsReq-list {
@@ -41,6 +41,11 @@
   margin: 0.25rem 0;
   padding: 1rem;
   border-radius: 0.5rem;
+}
+.friendsReq-list-name,
+.groupReq-list-name,
+.groupReq-list-groupName {
+  font-size: 1.25rem;
 }
 .friendReq-groupReq-buttons {
   display: flex;
@@ -58,5 +63,5 @@
   cursor: pointer;
 }
 .friendReq-groupReq-buttons button:hover {
-  background: var(--white);
+  background: rgb(209, 209, 209);
 }

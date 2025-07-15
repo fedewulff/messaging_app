@@ -3,7 +3,7 @@
   flex-direction: column;
   gap: 0.5rem;
   padding: 0.5rem;
-  width: 15%;
+  width: 20%;
 }
 .friendsTitle {
   display: flex;
@@ -14,7 +14,7 @@
 }
 .friendsTitle button {
   color: var(--white);
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   border-radius: 0.35rem;
   padding-bottom: 0.25rem;
   width: 100%;
@@ -76,7 +76,18 @@
   border: none;
   cursor: pointer;
 }
+.friends-group-container {
+  height: 100%;
+  overflow-y: scroll;
+}
+.friends-group-container::-webkit-scrollbar {
+  display: none;
+}
 
+.friends-group-container {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
 .friends-groups-list {
   font-size: 1.25rem;
   list-style-type: none;
@@ -95,11 +106,27 @@
 .friendsTitle button:focus-visible {
   outline: 0.125rem solid var(--yellow);
 }
-
+.addGroup-form {
+  height: 100%;
+}
 /*FRIEND LIST TO CREATE GROUP*/
 .invite-friends {
-  margin-top: 0.75rem;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
   font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--white);
+}
+.friends-list-to-add {
+  overflow-y: scroll;
+}
+.friends-list-to-add::-webkit-scrollbar {
+  display: none;
+}
+
+.friends-list-to-add {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .checkbox-container {

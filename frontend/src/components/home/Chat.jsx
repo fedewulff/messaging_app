@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router"
 import newAccessToken from "../../functions/refreshToken"
 import "../../css/home.css/Chat.css"
 
-function Chat({ chat, userId, token, setToken }) {
+function Chat({ chat, user, token, setToken }) {
+  const navigate = useNavigate()
   const [msg, setMsg] = useState("")
   const [conversation, setConversation] = useState([])
   const [error, setError] = useState("")
@@ -10,29 +12,47 @@ function Chat({ chat, userId, token, setToken }) {
 
   useEffect(() => {
     if (chat.friend) {
-      getChatMessages(token, userId, chat.friendId)
+      getFriendMessages(token, user.id, chat.friendId)
     }
     if (chat.group) {
-      getChatMessages(token, userId, chat.group.id)
+      getGroupMessages(token, user.id, chat.group.id)
     }
   }, [chat])
 
-  async function getChatMessages(value, senderId, receiverId) {
+  async function getFriendMessages(value, senderId, receiverId) {
     try {
-      const response = await fetch(`http://localhost:3000/chatMessages/${senderId}/${receiverId}`, {
+      const response = await fetch(`http://localhost:3000/friendMessages/${senderId}/${receiverId}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${value}`,
         },
       })
       if (response.status === 403) {
-        console.error("403-Forbidden access, getting refresh token")
-        refreshToken("getMsgs", senderId, receiverId)
+        refreshToken("getFriendMsgs", senderId, receiverId)
         return
       }
       const data = await response.json()
       setConversation(data.chatMsgs)
-      console.log(data.chatMsgs)
+    } catch (error) {
+      setError(error)
+    } finally {
+      setLoading(false)
+    }
+  }
+  async function getGroupMessages(value, senderId, receiverId) {
+    try {
+      const response = await fetch(`http://localhost:3000/groupMessages/${senderId}/${receiverId}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${value}`,
+        },
+      })
+      if (response.status === 403) {
+        refreshToken("getGroupMsgs", senderId, receiverId)
+        return
+      }
+      const data = await response.json()
+      setConversation(data.chatMsgs)
     } catch (error) {
       setError(error)
     } finally {
@@ -41,16 +61,16 @@ function Chat({ chat, userId, token, setToken }) {
   }
   function sendMessage(e) {
     if (chat.friend) {
-      sendChatMessage(e, token, userId, chat.friendId, msg)
+      sendFriendMessage(e, token, user.id, chat.friendId, msg)
     }
     if (chat.group) {
-      sendChatMessage(e, token, userId, chat.group.id, msg)
+      sendGroupMessage(e, token, user.id, chat.group.id, msg, user.username)
     }
   }
-  async function sendChatMessage(e, value, senderId, receiverId, message) {
+  async function sendFriendMessage(e, value, senderId, receiverId, message) {
     e.preventDefault()
     try {
-      const response = await fetch(`http://localhost:3000/sendChatMessage`, {
+      const response = await fetch(`http://localhost:3000/sendFriendMessage`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -59,27 +79,49 @@ function Chat({ chat, userId, token, setToken }) {
         body: JSON.stringify({ senderId, receiverId, message }),
       })
       if (response.status === 403) {
-        console.error("403-Forbidden access, getting refresh token")
-        refreshToken("sendMsg", e, senderId, receiverId, message)
+        refreshToken("sendFriendMsg", e, senderId, receiverId, message)
         return
       }
-      const data = await response.json()
-      console.log(data)
       setMsg("")
     } catch (error) {
       console.error(error)
     }
   }
-  async function refreshToken(value, val1, val2, val3, val4) {
+  async function sendGroupMessage(e, value, senderId, receiverId, message, senderUsername) {
+    e.preventDefault()
+    try {
+      const response = await fetch(`http://localhost:3000/sendGroupMessage`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${value}`,
+        },
+        body: JSON.stringify({ senderId, senderUsername, receiverId, message }),
+      })
+      if (response.status === 403) {
+        refreshToken("sendGroupMsg", e, senderId, receiverId, message, senderUsername)
+        return
+      }
+      setMsg("")
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  async function refreshToken(value, val1, val2, val3, val4, val5) {
     try {
       const accessToken = await newAccessToken()
       setToken(accessToken)
-      if (value === "getMsgs") {
-        console.log(999)
-        getChatMessages(accessToken, val1, val2)
+      if (value === "getFriendMsgs") {
+        getFriendMessages(accessToken, val1, val2)
       }
-      if (value === "sendMsg") {
-        sendChatMessage(val1, accessToken, val2, val3, val4)
+      if (value === "getGroupMsgs") {
+        getGroupMessages(accessToken, val1, val2)
+      }
+      if (value === "sendFriendMsg") {
+        sendFriendMessage(val1, accessToken, val2, val3, val4, val5)
+      }
+      if (value === "sendGroupMsg") {
+        sendGroupMessage(val1, accessToken, val2, val3, val4, val5)
       }
     } catch (error) {
       console.error("403-Forbidden access, must log in again")
@@ -95,8 +137,9 @@ function Chat({ chat, userId, token, setToken }) {
         <div className="conv">
           <ul>
             {conversation.map((convMsg, index) => (
-              <li key={index} className={convMsg.senderId === userId ? "my-message" : "friend-message"}>
-                {convMsg.message}
+              <li key={index} className={convMsg.senderId === user.id ? "my-message" : "friend-message"}>
+                {convMsg.senderId !== user.id && <div className="group-msg-sender">{convMsg.senderUsername}</div>}
+                <div>{convMsg.message}</div>
               </li>
             ))}
           </ul>

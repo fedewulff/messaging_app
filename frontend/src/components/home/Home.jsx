@@ -4,13 +4,15 @@ import newAccessToken from "../../functions/refreshToken"
 import Navbar from "../Navbar"
 import FriendsGroups from "./Friends-Groups"
 import Chat from "./Chat"
+import ErrorRequest from "../ErrorRequest"
 import "../../css/home.css/Home.css"
 
 function Home() {
   const location = useLocation()
   const navigate = useNavigate()
-  const [token, setToken] = useState("")
-  const [error, setError] = useState(``)
+  const [token, setToken] = useState()
+  const [error, setError] = useState(false)
+  const [status, setStatus] = useState()
   const [loading, setLoading] = useState(true)
   const [userData, setUserData] = useState()
   const [chat, setChat] = useState({})
@@ -23,10 +25,6 @@ function Home() {
     setToken(location.state.token)
     return
   }
-  if (!location.state && !token) {
-    refreshToken()
-    return
-  }
   async function getUserData(value) {
     try {
       const response = await fetch("http://localhost:3000/user", {
@@ -35,15 +33,18 @@ function Home() {
           Authorization: `Bearer ${value}`,
         },
       })
+
       if (response.status === 403) {
-        console.error("403-Forbidden access, getting refresh token")
+        //console.error("403-Forbidden access, getting refresh token")
         refreshToken()
         return
       }
+      setStatus(response.status)
       const data = await response.json()
       setUserData(data.userData)
     } catch (error) {
-      setError(error)
+      console.error(error)
+      setError(true)
     } finally {
       setLoading(false)
     }
@@ -53,11 +54,16 @@ function Home() {
       const accessToken = await newAccessToken()
       setToken(accessToken)
       getUserData(accessToken)
+      if (location.state) {
+        location.state = null
+      }
     } catch (error) {
-      console.error("403-Forbidden access, must log in again")
+      console.error("Forbidden access, must log in again")
       navigate("/")
     }
   }
+  if (error && !userData) return <ErrorRequest status={status} />
+  if (loading) return <div className="loading">Loading...</div>
   if (!userData || !token) return
 
   return (
@@ -65,7 +71,7 @@ function Home() {
       <Navbar userData={userData} setToken={setToken} />
       <div className="content">
         <FriendsGroups userData={userData} token={token} setToken={setToken} setChat={setChat} />
-        <Chat chat={chat} userId={userData.id} token={token} setToken={setToken} />
+        <Chat chat={chat} user={{ id: userData.id, username: userData.username }} token={token} setToken={setToken} />
       </div>
     </div>
   )

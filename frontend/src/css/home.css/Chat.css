@@ -8,8 +8,12 @@
 }
 .friendsName {
   display: flex;
-  flex-direction: column;
-  font-size: 1.5rem;
+  justify-content: center;
+  width: 90%;
+  font-size: 2rem;
+  margin: auto;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--blue);
 }
 
 .convContainer {
@@ -27,6 +31,16 @@
 }
 .conv {
   height: 100%;
+  font-size: 1.25rem;
+  overflow-y: scroll;
+}
+.conv::-webkit-scrollbar {
+  display: none;
+}
+
+.conv {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 .conv ul {
   display: flex;
@@ -39,6 +53,7 @@
   width: fit-content;
   border-radius: 0.25rem;
   padding: 0.25rem 0.5rem;
+  max-width: 98%;
 }
 .my-message {
   background: var(--blue);
@@ -46,6 +61,10 @@
 }
 .friend-message {
   background: var(--yellow);
+}
+.group-msg-sender {
+  color: var(--blue);
+  font-size: 1rem;
 }
 .convContainer form {
   display: flex;

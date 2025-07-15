@@ -8,7 +8,7 @@ function LogIn() {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [errorMessage, setErrorMessage] = useState("")
-  console.log(location.state)
+
   async function login(e) {
     e.preventDefault()
     try {

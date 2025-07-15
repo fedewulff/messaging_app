@@ -10,6 +10,7 @@ function Friends({ user, friends, token, setToken, setChat }) {
 
   async function sendFriendReq(e, value) {
     e.preventDefault()
+    if (user.username === addFriendName) return
     try {
       const response = await fetch("http://localhost:3000/sendFriendRequest", {
         method: "POST",
@@ -20,37 +21,27 @@ function Friends({ user, friends, token, setToken, setChat }) {
         body: JSON.stringify({ username: user.username, addFriendName }),
       })
       if (response.status === 403) {
-        console.error("403-Forbidden access, getting refresh token")
-        refreshToken(e, "friendReq")
+        refreshToken(e)
         return
       }
-      const data = await response.json()
       setAddFriendName("")
-      console.log(data)
-
       if (!response.ok) {
-        console.error("error")
+        console.error("Error sending friend request")
       }
     } catch (error) {
       console.error("Network error:", error)
     }
   }
-  async function refreshToken(e, value, myId, groupName) {
+  async function refreshToken(e) {
     try {
       const accessToken = await newAccessToken()
-
-      if (value === "friendReq") {
-        sendFriendReq(e, accessToken)
-      }
+      sendFriendReq(e, accessToken)
       setToken(accessToken)
     } catch (error) {
-      console.error("403-Forbidden access, must log in again")
+      console.error("Forbidden access, must log in again")
       navigate("/")
     }
   }
-  // function showData(friendChat) {
-  //   setChat(friendChat)
-  // }
 
   return (
     <div className="friendsNames">
@@ -72,13 +63,15 @@ function Friends({ user, friends, token, setToken, setChat }) {
           <button>Add friend</button>
         </form>
       )}
-      <ul>
-        {friends.map((friend, index) => (
-          <li key={index} className="friends-groups-list" onClick={() => setChat(friend)}>
-            {friend.friend}
-          </li>
-        ))}
-      </ul>
+      {!showAddFriend && (
+        <ul className="friends-group-container">
+          {friends.map((friend, index) => (
+            <li key={index} className="friends-groups-list" onClick={() => setChat(friend)}>
+              {friend.friend}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   )
 }

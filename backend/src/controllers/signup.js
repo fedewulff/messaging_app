@@ -9,8 +9,8 @@ const validateSignUp = [
     .trim()
     .notEmpty()
     .withMessage("Username cannot be empty")
-    .isLength({ min: 2, max: 20 })
-    .withMessage(`Username has to be between 2 and 20 characters long`)
+    .isLength({ min: 4, max: 25 })
+    .withMessage(`Username has to be between 4 and 25 characters long`)
     .custom(async (username) => {
       const user = await prisma.user.findUnique({
         where: {
@@ -25,8 +25,8 @@ const validateSignUp = [
     .trim()
     .notEmpty()
     .withMessage(`Password cannot be empty`)
-    .isLength({ min: 8, max: 30 })
-    .withMessage(`Password has to be between 8 and 30 characters long`),
+    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.!@#$%^&*()_+])[A-Za-z\d.!@#$%^&*()_+]{8,25}$/)
+    .withMessage("Password must be between 8 and 25 characters long and include uppercase, lowercase, number, and special character."),
   body("confirmPassword")
     .trim()
     .notEmpty()
@@ -36,12 +36,10 @@ const validateSignUp = [
         throw new Error("Passwords do not match")
       }
       return value === req.body.password
-    })
-    .isLength({ min: 8, max: 30 })
-    .withMessage(`Password has to be between 8 and 30 characters long`),
+    }),
 ]
 
-exports.adminSignUpPost = [
+module.exports.signup = [
   validateSignUp,
   async (req, res, next) => {
     try {

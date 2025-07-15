@@ -9,15 +9,15 @@ const chat = require("../controllers/chat")
 const authenticateToken = require("../middleware/verifyJWT")
 
 //SIGNUP
-routes.post("/signup", signup.adminSignUpPost)
+routes.post("/signup", signup.signup)
 //LOGIN
-routes.post("/login", login.adminLogInPost)
+routes.post("/login", login.login)
 //GET USER DATA
 routes.get("/user", authenticateToken, home.getUserData)
 //SEND FRIEND REQUEST
 routes.post("/sendFriendRequest", authenticateToken, home.postFriendRequest)
 //GET FRIEND REQUEST
-routes.get("/getFriendRequests/:toUser", home.getFriendRequests)
+routes.get("/getFriendRequests/:toUser", authenticateToken, home.getFriendRequests)
 //ADD FRIEND
 routes.post("/addFriend", authenticateToken, home.postFriend)
 //DELETE FRIEND REQ
@@ -26,18 +26,20 @@ routes.delete("/denyFriend", authenticateToken, home.denyFriend)
 routes.get("/refreshToken", refreshToken.handleRefreshToken)
 //CREATE GROUP AND SEND INVITES
 routes.post("/createGroup", authenticateToken, home.createGroup)
-//SEND GROUP REQUEST
-//routes.post("/sendGroupRequest", authenticateToken, home.postGroupRequest)
 //GET GROUP REQUEST
 routes.get("/getGroupRequests/:toUser", authenticateToken, home.getGroupRequests)
 //ACCEPT GROUP INVITE
 routes.post("/acceptGroupInvite", authenticateToken, home.acceptGroupInvite)
 //REJECT AND DELETE GROUP INVITE
 routes.delete("/rejectGroupInvite", authenticateToken, home.rejectGroupInvite)
-//GET MESSAGES
-routes.get("/chatMessages/:senderId/:receiverId", authenticateToken, chat.getChatMessages)
-//SEND MESSAGE
-routes.post("/sendChatMessage", authenticateToken, chat.sendChatMessage)
+//GET FRIEND MESSAGES
+routes.get("/friendMessages/:senderId/:receiverId", authenticateToken, chat.getFriendMessages)
+//GET GROUP MESSAGES
+routes.get("/groupMessages/:senderId/:receiverId", authenticateToken, chat.getGroupMessages)
+//SEND MESSAGE TO FRIEND
+routes.post("/sendFriendMessage", authenticateToken, chat.sendFriendMessage)
+//SEND MESSAGE TO FRIEND
+routes.post("/sendGroupMessage", authenticateToken, chat.sendGroupMessage)
 //LOGOUT
 routes.put("/logout", logout.logout)
 

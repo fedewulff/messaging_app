@@ -13,7 +13,7 @@ function Groups({ user, friends, groups, token, setToken, setChat }) {
   const [friendsCheckboxes, setFriendsCheckboxes] = useState(newFriendsArray)
 
   const showCreateGroupFc = () => setShowCreateGroup(!showCreateGroup)
-  const handleCheckboxChange = (id) => {
+  function handleCheckboxChange(id) {
     setFriendsCheckboxes((prevFriendsCheckboxes) =>
       prevFriendsCheckboxes.map((friendBox) => (friendBox.friendId === id ? { ...friendBox, isChecked: !friendBox.isChecked } : friendBox))
     )
@@ -32,16 +32,11 @@ function Groups({ user, friends, groups, token, setToken, setChat }) {
         body: JSON.stringify({ myId, myUsername, groupName, friendsToInvite }),
       })
       if (response.status === 403) {
-        console.error("403-Forbidden access, getting refresh token")
         refreshToken(e, myId, myUsername, groupName, friendsToInvite)
         return
       }
-      const data = await response.json()
       setNewGroupName("")
       setFriendsCheckboxes((prevFriendsCheckboxes) => prevFriendsCheckboxes.map((friendBox) => ({ ...friendBox, isChecked: false })))
-      if (!response.ok) {
-        console.error("error")
-      }
     } catch (error) {
       console.error("Network error:", error)
     }
@@ -49,12 +44,10 @@ function Groups({ user, friends, groups, token, setToken, setChat }) {
   async function refreshToken(e, myId, myUsername, groupName, friendsToInvite) {
     try {
       const accessToken = await newAccessToken()
-
       createGroup(e, accessToken, myId, myUsername, groupName, friendsToInvite)
-
       setToken(accessToken)
     } catch (error) {
-      console.error("403-Forbidden access, must log in again")
+      console.error("Forbidden access, must log in again")
       navigate("/")
     }
   }
@@ -91,7 +84,7 @@ function Groups({ user, friends, groups, token, setToken, setChat }) {
       {!showCreateGroup && <button onClick={showCreateGroupFc}>+</button>}
       {showCreateGroup && <button onClick={showCreateGroupFc}> &#8722;</button>}
       {showCreateGroup && (
-        <form onSubmit={(e) => createGroup(e, token, user.id, user.username, newGroupName, selectedFriends)}>
+        <form onSubmit={(e) => createGroup(e, token, user.id, user.username, newGroupName, selectedFriends)} className="addGroup-form">
           <label htmlFor="addGroup"></label>
           <input
             type="text"
@@ -104,24 +97,26 @@ function Groups({ user, friends, groups, token, setToken, setChat }) {
             required
           />
           {friends[0] && <div className="invite-friends">Invite friends:</div>}
-          {friendsCheckboxes.map((friendBox, index) => (
-            <div key={index} className="checkbox-container ">
-              <input
-                type="checkbox"
-                id={friendBox.friendId}
-                name={friendBox.friend}
-                checked={friendBox.isChecked}
-                onChange={() => handleCheckboxChange(friendBox.friendId)}
-              />
-              <span className="checkmark"></span>
-              <label htmlFor={friendBox.friendId}>{friendBox.friend}</label>
-            </div>
-          ))}
+          <div className="friends-list-to-add">
+            {friendsCheckboxes.map((friendBox, index) => (
+              <div key={index} className="checkbox-container ">
+                <input
+                  type="checkbox"
+                  id={friendBox.friendId}
+                  name={friendBox.friend}
+                  checked={friendBox.isChecked}
+                  onChange={() => handleCheckboxChange(friendBox.friendId)}
+                />
+                <span className="checkmark"></span>
+                <label htmlFor={friendBox.friendId}>{friendBox.friend}</label>
+              </div>
+            ))}
+          </div>
           <button>Create group</button>
         </form>
       )}
       {!showCreateGroup && (
-        <ul>
+        <ul className="friends-group-container">
           {groups.map((group, index) => (
             <li key={index} className="friends-groups-list" onClick={() => setChat(group)}>
               {group.group.name}

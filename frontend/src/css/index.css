@@ -13,3 +13,6 @@
 body {
   background: var(--blue);
 }
+
+@media (max-width: 600px) {
+}

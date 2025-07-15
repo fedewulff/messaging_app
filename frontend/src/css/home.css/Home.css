@@ -1,3 +1,10 @@
+.loading {
+  font-size: 4rem;
+  color: var(--yellow);
+  width: fit-content;
+  margin: 6rem auto;
+}
+
 .chatContainer {
   height: 100svh;
   color: var(--whites);
@@ -6,4 +13,25 @@
 .content {
   display: flex;
   height: 95%;
+}
+
+.error-on-request {
+  width: fit-content;
+  margin: 4rem auto;
+}
+.error-on-request h1 {
+  color: var(--yellow);
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+}
+.error-on-request p:nth-child(2) {
+  color: var(--white);
+  font-size: 1.25rem;
+  margin-bottom: 2.5rem;
+}
+.error-on-request p:nth-child(3),
+.error-on-request p:nth-child(4) {
+  color: var(--white);
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
 }
