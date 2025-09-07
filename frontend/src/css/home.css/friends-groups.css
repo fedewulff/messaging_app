@@ -4,6 +4,7 @@
   gap: 0.5rem;
   padding: 0.5rem;
   width: 20%;
+  background: var(--blue);
 }
 .friendsTitle {
   display: flex;
@@ -14,7 +15,7 @@
 }
 .friendsTitle button {
   color: var(--white);
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   border-radius: 0.35rem;
   padding-bottom: 0.25rem;
   width: 100%;
@@ -153,4 +154,71 @@
 
 .checkbox-container > input:checked {
   background-color: var(--yellow);
+}
+.closeFriendsContainer {
+  background: none;
+  border: none;
+  display: none;
+  cursor: pointer;
+  width: fit-content;
+}
+.closeFriendsContainer svg {
+  height: 2rem;
+  fill: var(--yellow);
+  flex-shrink: 0;
+  padding: 0;
+}
+
+@media (max-width: 1400px) and (min-width: 1200px) {
+  .friendsContainer {
+    width: 25%;
+  }
+}
+
+@media (max-width: 1200px) {
+  .friendsTitle button {
+    font-size: 1.25rem;
+  }
+  .friends-groups-list {
+    font-size: 1rem;
+  }
+}
+@media (max-width: 1200px) {
+  .friendsTitle button {
+    font-size: 1.5rem;
+  }
+  .friends-groups-list {
+    font-size: 1.25rem;
+  }
+  .friendsContainer {
+    overflow: hidden;
+    width: 50%;
+    position: fixed;
+    top: 1px;
+    left: -50%;
+    transition: 500ms ease-out;
+    height: 100svh;
+    border-radius: 0.5rem;
+    box-shadow: 0px 0px 5px black;
+  }
+  .friendsContainer.active {
+    left: 1px;
+    transition: 500ms ease-out;
+  }
+  .closeFriendsContainer {
+    display: initial;
+  }
+}
+@media (max-width: 600px) {
+  .friendsContainer {
+    overflow: hidden;
+    width: 100%;
+    position: fixed;
+    top: 1px;
+    left: -100%;
+    transition: 500ms ease-out;
+    height: 100svh;
+    border-radius: 0.5rem;
+    box-shadow: 0px 0px 5px black;
+  }
 }

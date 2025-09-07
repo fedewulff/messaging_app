@@ -1,9 +1,8 @@
-import { useState, useEffect, useRef } from "react"
-import { useLocation, useNavigate } from "react-router"
+import { useState, useEffect } from "react"
+import { useNavigate } from "react-router"
 import newAccessToken from "../../functions/refreshToken"
 
 function GroupReq({ user, token, setToken }) {
-  const location = useLocation()
   const navigate = useNavigate()
   const [groupReqs, setGroupReqs] = useState([])
   const [searchForGroupReqs, setSearchForGroupReqs] = useState(true)
@@ -25,6 +24,9 @@ function GroupReq({ user, token, setToken }) {
         refreshToken("searchGroupReq")
         return
       }
+      if (!response.ok) {
+        throw new Error(`${response.statusText} - Error code:${response.status} - ${response.url}`)
+      }
       setGroupReqs(data.groupReq)
     } catch (error) {
       console.error(error)
@@ -44,6 +46,9 @@ function GroupReq({ user, token, setToken }) {
         refreshToken("acceptGroup", myId, groupId, groupReqId)
         return
       }
+      if (!response.ok) {
+        throw new Error(`${response.statusText} - Error code:${response.status} - ${response.url}`)
+      }
       deleteGroupReq(token, groupReqId)
     } catch (error) {
       console.error("Network error:", error)
@@ -62,6 +67,9 @@ function GroupReq({ user, token, setToken }) {
       if (response.status === 403) {
         refreshToken("rejectGroup", groupReqId)
         return
+      }
+      if (!response.ok) {
+        throw new Error(`${response.statusText} - Error code:${response.status} - ${response.url}`)
       }
       setSearchForGroupReqs(!searchForGroupReqs)
     } catch (error) {

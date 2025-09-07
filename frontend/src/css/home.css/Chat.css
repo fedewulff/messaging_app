@@ -3,8 +3,12 @@
   flex-direction: column;
   gap: 0.5rem;
   padding: 0.5rem;
-
-  width: 85%;
+  width: 80%;
+}
+.error-chat-msg {
+  color: var(--yellow);
+  margin: 3rem auto 0;
+  width: fit-content;
 }
 .friendsName {
   display: flex;
@@ -49,6 +53,8 @@
 }
 .my-message,
 .friend-message {
+  text-align: start;
+  overflow-wrap: break-word;
   list-style-type: none;
   width: fit-content;
   border-radius: 0.25rem;
@@ -97,4 +103,27 @@
 
 .convContainer textarea:focus-visible {
   outline: 0.125rem solid var(--yellow);
+}
+
+@media (max-width: 1400px) and (min-width: 1200px) {
+  .chat {
+    width: 75%;
+  }
+}
+
+@media (max-width: 1200px) {
+  .chat {
+    width: 100%;
+  }
+  .conv {
+    font-size: 1.25rem;
+  }
+}
+@media (max-width: 600px) {
+  .conv {
+    font-size: 1rem;
+  }
+  .friendsName {
+    font-size: 1.75rem;
+  }
 }

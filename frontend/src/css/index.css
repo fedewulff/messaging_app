@@ -5,14 +5,15 @@
   font-family: "Funnel Display", sans-serif;
 }
 :root {
-  --blue: #2c333f;
-  --yellow: #bd9252;
-  --white: #fffff4;
-  --light-blue: #626c7c;
+  --blue: #2c3930;
+  --yellow: #a27b5c;
+  --white: #dcd7c9;
+  --light-blue: #3f4f44;
 }
 body {
   background: var(--blue);
 }
 
-@media (max-width: 600px) {
+.app {
+  height: 100svh;
 }

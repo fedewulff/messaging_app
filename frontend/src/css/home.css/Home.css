@@ -6,13 +6,13 @@
 }
 
 .chatContainer {
-  height: 100svh;
+  height: 95%;
   color: var(--whites);
 }
 
 .content {
   display: flex;
-  height: 95%;
+  height: 100%;
 }
 
 .error-on-request {

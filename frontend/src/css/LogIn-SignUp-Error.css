@@ -16,8 +16,8 @@
 }
 
 .formContainer form {
-  width: 30%;
-  margin-top: 4rem;
+  width: 40%;
+  margin-top: 3rem;
   gap: 2rem;
   padding: 3rem 2.5rem;
   color: var(--white);
@@ -69,7 +69,7 @@
 
 .or {
   font-size: 1.75rem;
-  margin: 2.25rem;
+  margin: 1.75rem;
   color: var(--white);
 }
 
@@ -110,4 +110,26 @@
 .errorPage h1 {
   color: var(--white);
   padding: 0.25rem;
+}
+
+@media (max-width: 1200px) {
+  .formContainer form {
+    width: 50%;
+  }
+}
+@media (max-width: 1000px) {
+  .formContainer form {
+    width: 60%;
+  }
+  .formContainer input {
+    font-size: 1.5rem;
+  }
+}
+@media (max-width: 600px) {
+  .formContainer form {
+    width: 98%;
+  }
+  .formContainer input {
+    font-size: 1.25rem;
+  }
 }

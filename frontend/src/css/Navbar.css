@@ -14,13 +14,16 @@
   background: none;
   border: none;
   cursor: pointer;
+  margin-top: 0.25rem;
 }
-
 .navbar svg {
   height: 2.5rem;
   fill: var(--yellow);
   flex-shrink: 0;
   padding: 0;
+}
+.navbar button:first-child {
+  display: none;
 }
 /**/
 .nav-menu {
@@ -81,38 +84,9 @@
 .btn-to-logout {
   display: flex;
 }
-/* .nav-menu .btn-close-navbar {
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: #fffff4;
-  width: fit-content;
-  margin-left: auto;
-  display: flex;
-  padding: 0.75rem;
-}
 
-.nav-text {
-  display: flex;
-  align-items: center;
-  padding-left: 0.75rem;
-  font-size: 1.25rem;
-  height: 3rem;
-  color: #fffff4;
+@media (max-width: 1200px) {
+  .navbar button:first-child {
+    display: initial;
+  }
 }
-.btn-close-navbar,
-.btn-to-logout {
-  background: none;
-  border: none;
-  height: 3rem;
-  cursor: pointer;
-}
-.btn-to-logout {
-  padding-bottom: 0.25rem;
-}
-.btn-to-profile {
-  text-decoration: none;
-  cursor: pointer;
-}
-.nav-text:hover {
-  background: #222831;
-} */

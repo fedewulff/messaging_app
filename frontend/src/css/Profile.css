@@ -38,21 +38,23 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 0.5rem;
   margin: 0.25rem 0;
-  padding: 1rem;
+  padding: 0.5rem;
   border-radius: 0.5rem;
 }
 .friendsReq-list-name,
 .groupReq-list-name,
 .groupReq-list-groupName {
   font-size: 1.25rem;
+  overflow-wrap: anywhere;
 }
 .friendReq-groupReq-buttons {
   display: flex;
   gap: 0.5rem;
 }
 .friendReq-groupReq-buttons button {
-  width: 6rem;
+  width: 8rem;
   font-size: 1rem;
   font-weight: 600;
   border: none;
@@ -64,4 +66,33 @@
 }
 .friendReq-groupReq-buttons button:hover {
   background: rgb(209, 209, 209);
+}
+
+@media (max-width: 1300px) {
+  .profile-container {
+    width: 70%;
+  }
+  .friendReq-groupReq-buttons button {
+    width: 6rem;
+  }
+}
+@media (max-width: 900px) {
+  .friendsReq-list,
+  .groupsReq-list {
+    flex-direction: column;
+    align-items: start;
+  }
+  .friendReq-groupReq-buttons {
+    margin: auto;
+    width: 100%;
+  }
+  .friendReq-groupReq-buttons button {
+    flex-grow: 1;
+    font-size: 1rem;
+  }
+}
+@media (max-width: 600px) {
+  .profile-container {
+    min-width: 100%;
+  }
 }

@@ -6,6 +6,7 @@ import "./css/index.css"
 import LogIn from "./components/LogIn"
 import ErrorURL from "./components/ErrorURL"
 import SignUp from "./components/SignUp"
+import App from "./components/app/app"
 import Home from "./components/home/Home"
 import Profile from "./components/profile/Profile"
 
@@ -19,24 +20,20 @@ const router = createBrowserRouter([
     path: "/signup",
     element: <SignUp />,
   },
-  {
-    path: "/home",
-    element: <Home />,
-  },
-  {
-    path: "/profile",
-    element: <Profile />,
-    errorElement: <ErrorURL />,
-  },
+  { path: "/:page", element: <App /> },
   // {
-  //   path: "/admin-profile/post/:postId",
-  //   element: <Post />,
-  //   errorElement: <ErrorPage />,
+  //   path: "/home",
+  //   element: <Home />,
+  // },
+  // {
+  //   path: "/profile",
+  //   element: <Profile />,
+  //   errorElement: <ErrorURL />,
   // },
 ])
 
 createRoot(document.getElementById("root")).render(
-  // <StrictMode>
+  //<StrictMode>
   <RouterProvider router={router} />
-  // </StrictMode>
+  //</StrictMode>
 )

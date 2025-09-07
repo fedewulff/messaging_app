@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { NavLink, useNavigate, useLocation } from "react-router"
 import "../css/LogIn-SignUp-Error.css"
+import { socket } from "../../socket/socket"
 
 function LogIn() {
   const location = useLocation()

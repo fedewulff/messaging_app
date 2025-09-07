@@ -47,38 +47,10 @@ function Groups({ user, friends, groups, token, setToken, setChat }) {
       createGroup(e, accessToken, myId, myUsername, groupName, friendsToInvite)
       setToken(accessToken)
     } catch (error) {
-      console.error("Forbidden access, must log in again")
       navigate("/")
     }
   }
-  //   async function sendGroupReq(token) {
-  //     try {
-  //       const response = await fetch("http://localhost:3000/sendGroupRequest", {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //         body: JSON.stringify({ username: user.username, addFriendName }),
-  //       })
-  //       if (response.status === 403) {
-  //         console.error("403-Forbidden access, getting refresh token")
-  //         refreshToken(e, "friendReq")
-  //         return
-  //       }
-  //       const data = await response.json()
-  //       console.log(data)
 
-  //       if (!response.ok) {
-  //         console.error("error")
-  //       }
-  //     } catch (error) {
-  //       console.error("Network error:", error)
-  //     }
-  //   }
-  // function showData(groupChat) {
-  //   setChat(groupChat)
-  // }
   return (
     <div className="groupNames">
       {!showCreateGroup && <button onClick={showCreateGroupFc}>+</button>}
@@ -91,6 +63,7 @@ function Groups({ user, friends, groups, token, setToken, setChat }) {
             id="addGroup"
             name="addGroup"
             autoComplete="off"
+            maxLength={20}
             value={newGroupName}
             placeholder="Group name"
             onChange={(e) => setNewGroupName(e.target.value)}

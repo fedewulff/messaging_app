@@ -3,13 +3,11 @@ import { useNavigate } from "react-router"
 import newAccessToken from "../../functions/refreshToken"
 import FriendReq from "./FriendReq"
 import GroupReq from "./GroupReq"
-import Navbar from "../Navbar"
 import ErrorRequest from "../ErrorRequest"
 import "../../css/Profile.css"
 
-function Profile() {
+function Profile({ token, setToken }) {
   const navigate = useNavigate()
-  const [token, setToken] = useState()
   const [userData, setUserData] = useState()
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
@@ -31,7 +29,10 @@ function Profile() {
         refreshToken()
         return
       }
-      setStatus(response.status)
+      if (!response.ok) {
+        setStatus(response.status)
+        throw new Error(`${response.statusText} - Error code:${response.status} - ${response.url}`)
+      }
       const data = await response.json()
       setUserData(data.userData)
     } catch (error) {
@@ -41,7 +42,7 @@ function Profile() {
       setLoading(false)
     }
   }
-  async function refreshToken(value) {
+  async function refreshToken() {
     try {
       const accessToken = await newAccessToken()
       setToken(accessToken)
@@ -52,12 +53,11 @@ function Profile() {
     }
   }
 
-  if (error && !userData) return <ErrorRequest status={status} />
+  if (error) return <ErrorRequest status={status} />
   if (loading) return <div className="loading">Loading...</div>
   if (!userData || !token) return
   return (
     <>
-      <Navbar />
       <div className="profile-container">
         <div className="username-profile">
           <div>Username: </div>

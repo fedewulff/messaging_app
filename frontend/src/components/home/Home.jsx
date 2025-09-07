@@ -7,10 +7,10 @@ import Chat from "./Chat"
 import ErrorRequest from "../ErrorRequest"
 import "../../css/home.css/Home.css"
 
-function Home() {
+function Home({ token, setToken, showFriends, setShowFriends }) {
   const location = useLocation()
   const navigate = useNavigate()
-  const [token, setToken] = useState()
+
   const [error, setError] = useState(false)
   const [status, setStatus] = useState()
   const [loading, setLoading] = useState(true)
@@ -21,10 +21,6 @@ function Home() {
     getUserData(token)
   }, [])
 
-  if (location.state && !token) {
-    setToken(location.state.token)
-    return
-  }
   async function getUserData(value) {
     try {
       const response = await fetch("http://localhost:3000/user", {
@@ -35,11 +31,13 @@ function Home() {
       })
 
       if (response.status === 403) {
-        //console.error("403-Forbidden access, getting refresh token")
         refreshToken()
         return
       }
-      setStatus(response.status)
+      if (!response.ok) {
+        setStatus(response.status)
+        throw new Error(`${response.statusText} - Error code:${response.status} - ${response.url}`)
+      }
       const data = await response.json()
       setUserData(data.userData)
     } catch (error) {
@@ -62,15 +60,21 @@ function Home() {
       navigate("/")
     }
   }
-  if (error && !userData) return <ErrorRequest status={status} />
+  if (error) return <ErrorRequest status={status} />
   if (loading) return <div className="loading">Loading...</div>
   if (!userData || !token) return
 
   return (
     <div className="chatContainer">
-      <Navbar userData={userData} setToken={setToken} />
       <div className="content">
-        <FriendsGroups userData={userData} token={token} setToken={setToken} setChat={setChat} />
+        <FriendsGroups
+          userData={userData}
+          token={token}
+          setToken={setToken}
+          setChat={setChat}
+          showFriends={showFriends}
+          setShowFriends={setShowFriends}
+        />
         <Chat chat={chat} user={{ id: userData.id, username: userData.username }} token={token} setToken={setToken} />
       </div>
     </div>

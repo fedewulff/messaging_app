@@ -37,9 +37,9 @@ routes.get("/friendMessages/:senderId/:receiverId", authenticateToken, chat.getF
 //GET GROUP MESSAGES
 routes.get("/groupMessages/:senderId/:receiverId", authenticateToken, chat.getGroupMessages)
 //SEND MESSAGE TO FRIEND
-routes.post("/sendFriendMessage", authenticateToken, chat.sendFriendMessage)
-//SEND MESSAGE TO FRIEND
-routes.post("/sendGroupMessage", authenticateToken, chat.sendGroupMessage)
+//routes.post("/sendFriendMessage", authenticateToken, chat.sendFriendMessage)
+//SEND MESSAGE TO GROUP
+//routes.post("/sendGroupMessage", authenticateToken, chat.sendGroupMessage)
 //LOGOUT
 routes.put("/logout", logout.logout)
 
