@@ -3,6 +3,7 @@ import { useNavigate } from "react-router"
 import { socket } from "../../../socket/socket"
 import newAccessToken from "../../functions/refreshToken"
 import "../../css/home.css/Chat.css"
+const URL = import.meta.env.VITE_BACKEND_URL
 
 function Chat({ chat, user, token, setToken }) {
   const navigate = useNavigate()
@@ -51,7 +52,7 @@ function Chat({ chat, user, token, setToken }) {
   }, [])
   async function getFriendMessages(value, senderId, receiverId) {
     try {
-      const response = await fetch(`http://localhost:3000/friendMessages/${senderId}/${receiverId}`, {
+      const response = await fetch(`${URL}/friendMessages/${senderId}/${receiverId}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${value}`,
@@ -75,7 +76,7 @@ function Chat({ chat, user, token, setToken }) {
   }
   async function getGroupMessages(value, senderId, receiverId) {
     try {
-      const response = await fetch(`http://localhost:3000/groupMessages/${senderId}/${receiverId}`, {
+      const response = await fetch(`${URL}/groupMessages/${senderId}/${receiverId}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${value}`,

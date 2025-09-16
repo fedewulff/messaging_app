@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router"
 import newAccessToken from "../../functions/refreshToken"
+const URL = import.meta.env.VITE_BACKEND_URL
 
 function FriendReq({ user, token, setToken }) {
   const navigate = useNavigate()
@@ -13,7 +14,7 @@ function FriendReq({ user, token, setToken }) {
 
   async function searchFriendReq(accToken) {
     try {
-      const response = await fetch(`http://localhost:3000/getFriendRequests/${user.username}`, {
+      const response = await fetch(`${URL}/getFriendRequests/${user.username}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${accToken}`,
@@ -34,7 +35,7 @@ function FriendReq({ user, token, setToken }) {
   }
   async function acceptFriend(token, myUsername, friendUsername, myId, friendId) {
     try {
-      const response = await fetch("http://localhost:3000/addFriend", {
+      const response = await fetch(`${URL}/addFriend`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -56,7 +57,7 @@ function FriendReq({ user, token, setToken }) {
   }
   async function deleteFriendReq(token, myUsername, friendUsername) {
     try {
-      const response = await fetch("http://localhost:3000/denyFriend", {
+      const response = await fetch(`${URL}/denyFriend`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

@@ -1,6 +1,4 @@
 import { useState } from "react"
-import { useLocation, useNavigate } from "react-router"
-import newAccessToken from "../../functions/refreshToken"
 import Friends from "./friends-groups/friends"
 import Groups from "./friends-groups/groups"
 import "../../css/home.css/friends-groups.css"

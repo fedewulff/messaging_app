@@ -5,6 +5,7 @@ import FriendReq from "./FriendReq"
 import GroupReq from "./GroupReq"
 import ErrorRequest from "../ErrorRequest"
 import "../../css/Profile.css"
+const URL = import.meta.env.VITE_BACKEND_URL
 
 function Profile({ token, setToken }) {
   const navigate = useNavigate()
@@ -19,7 +20,7 @@ function Profile({ token, setToken }) {
 
   async function getUserData(value) {
     try {
-      const response = await fetch("http://localhost:3000/user", {
+      const response = await fetch(`${URL}/user`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${value}`,

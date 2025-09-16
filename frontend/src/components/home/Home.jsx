@@ -6,6 +6,7 @@ import FriendsGroups from "./Friends-Groups"
 import Chat from "./Chat"
 import ErrorRequest from "../ErrorRequest"
 import "../../css/home.css/Home.css"
+const URL = import.meta.env.VITE_BACKEND_URL
 
 function Home({ token, setToken, showFriends, setShowFriends }) {
   const location = useLocation()
@@ -23,7 +24,7 @@ function Home({ token, setToken, showFriends, setShowFriends }) {
 
   async function getUserData(value) {
     try {
-      const response = await fetch("http://localhost:3000/user", {
+      const response = await fetch(`${URL}/user`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${value}`,

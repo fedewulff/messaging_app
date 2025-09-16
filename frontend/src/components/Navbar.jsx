@@ -2,6 +2,7 @@ import { useState } from "react"
 import { NavLink, useNavigate } from "react-router"
 import "../css/Navbar.css"
 import { socket } from "../../socket/socket"
+const URL = import.meta.env.VITE_BACKEND_URL
 
 function Navbar({ showFriends, setShowFriends }) {
   const navigate = useNavigate()
@@ -12,7 +13,7 @@ function Navbar({ showFriends, setShowFriends }) {
   async function logOut() {
     socket.disconnect()
     try {
-      const response = await fetch("http://localhost:3000/logout", {
+      const response = await fetch(`${URL}/logout`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

@@ -1,6 +1,7 @@
 import { useState } from "react"
-import { useLocation, useNavigate } from "react-router"
+import { useNavigate } from "react-router"
 import newAccessToken from "../../../functions/refreshToken"
+const URL = import.meta.env.VITE_BACKEND_URL
 
 function Groups({ user, friends, groups, token, setToken, setChat }) {
   const navigate = useNavigate()
@@ -23,7 +24,7 @@ function Groups({ user, friends, groups, token, setToken, setChat }) {
   async function createGroup(e, token, myId, myUsername, groupName, friendsToInvite) {
     e.preventDefault()
     try {
-      const response = await fetch("http://localhost:3000/createGroup", {
+      const response = await fetch(`${URL}/createGroup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -1,10 +1,9 @@
 import { useState } from "react"
 import { NavLink, useNavigate, useLocation } from "react-router"
 import "../css/LogIn-SignUp-Error.css"
-import { socket } from "../../socket/socket"
+const URL = import.meta.env.VITE_BACKEND_URL
 
 function LogIn() {
-  const location = useLocation()
   const navigate = useNavigate()
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
@@ -13,7 +12,7 @@ function LogIn() {
   async function login(e) {
     e.preventDefault()
     try {
-      const response = await fetch("http://localhost:3000/login", {
+      const response = await fetch(`${URL}/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

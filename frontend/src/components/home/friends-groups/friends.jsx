@@ -1,6 +1,7 @@
 import { useState } from "react"
-import { useLocation, useNavigate } from "react-router"
+import { useNavigate } from "react-router"
 import newAccessToken from "../../../functions/refreshToken"
+const URL = import.meta.env.VITE_BACKEND_URL
 
 function Friends({ user, friends, token, setToken, setChat }) {
   const navigate = useNavigate()
@@ -12,7 +13,7 @@ function Friends({ user, friends, token, setToken, setChat }) {
     e.preventDefault()
     if (user.username === addFriendName) return
     try {
-      const response = await fetch("http://localhost:3000/sendFriendRequest", {
+      const response = await fetch(`${URL}/sendFriendRequest`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

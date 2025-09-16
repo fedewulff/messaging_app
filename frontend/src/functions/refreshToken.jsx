@@ -1,5 +1,6 @@
+const URL = import.meta.env.VITE_BACKEND_URL
 async function newAccessToken() {
-  const response = await fetch("http://localhost:3000/refreshToken", {
+  const response = await fetch(`${URL}/refreshToken`, {
     headers: {
       "Content-Type": "application/json",
     },

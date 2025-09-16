@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router"
 import newAccessToken from "../../functions/refreshToken"
+const URL = import.meta.env.VITE_BACKEND_URL
 
 function GroupReq({ user, token, setToken }) {
   const navigate = useNavigate()
@@ -13,7 +14,7 @@ function GroupReq({ user, token, setToken }) {
 
   async function searchGroupReq(accToken) {
     try {
-      const response = await fetch(`http://localhost:3000/getGroupRequests/${user.username}`, {
+      const response = await fetch(`${URL}/getGroupRequests/${user.username}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${accToken}`,
@@ -34,7 +35,7 @@ function GroupReq({ user, token, setToken }) {
   }
   async function acceptGroupReq(token, myId, groupId, groupReqId) {
     try {
-      const response = await fetch("http://localhost:3000/acceptGroupInvite", {
+      const response = await fetch(`${URL}/acceptGroupInvite`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -56,7 +57,7 @@ function GroupReq({ user, token, setToken }) {
   }
   async function deleteGroupReq(token, groupReqId) {
     try {
-      const response = await fetch("http://localhost:3000/rejectGroupInvite", {
+      const response = await fetch(`${URL}/rejectGroupInvite`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

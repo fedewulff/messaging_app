@@ -10,7 +10,7 @@ const { app, server, io } = require("./server")
 app.use(express.json())
 app.use(cookieParser())
 //app.use(express.urlencoded({ extended: true }))
-app.use(cors({ origin: true, credentials: true }))
+app.use(cors({ origin: process.env.FRONTEND_URL, credentials: true }))
 
 io.use((socket, next) => {
   const token = socket.handshake.auth.token

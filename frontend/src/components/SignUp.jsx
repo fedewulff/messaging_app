@@ -1,6 +1,7 @@
 import { useState } from "react"
 import "../css/LogIn-SignUp-Error.css"
 import { NavLink, useNavigate } from "react-router"
+const URL = import.meta.env.VITE_BACKEND_URL
 
 function SignUp() {
   const [username, setUsername] = useState("")
@@ -45,7 +46,7 @@ function SignUp() {
       return
     }
     try {
-      const response = await fetch("http://localhost:3000/signup", {
+      const response = await fetch(`${URL}/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -74,7 +75,7 @@ function SignUp() {
     <>
       <div className="FWchatapp">FW chat app</div>
       <div className="formContainer">
-        <form action="http://localhost:9000/admin/signup" method="post" className="vertical" onSubmit={signUp}>
+        <form action="" method="post" className="vertical" onSubmit={signUp}>
           <div className="vertical">
             <label htmlFor="username">Username</label>
             <input
