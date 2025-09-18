@@ -32,7 +32,7 @@
   font-size: 1.75rem;
   border-radius: 0.75rem;
   border: none;
-
+  background: var(--white);
   padding: 0.5rem;
   color: var(--blue);
 }
@@ -40,10 +40,10 @@
   font-size: 0.75rem;
   margin-top: 0.25rem;
 }
-.valid-input {
+/* .formContainer .valid-input {
   background: var(--white);
-}
-.not-valid-input {
+} */
+.formContainer .not-valid-input {
   background: rgb(212, 102, 102);
 }
 

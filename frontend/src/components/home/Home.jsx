@@ -32,6 +32,7 @@ function Home({ token, setToken, showFriends, setShowFriends }) {
       })
 
       if (response.status === 403) {
+        console.log("getting user token from user data")
         refreshToken()
         return
       }
@@ -51,6 +52,7 @@ function Home({ token, setToken, showFriends, setShowFriends }) {
   async function refreshToken() {
     try {
       const accessToken = await newAccessToken()
+      console.log("new access token: ", accessToken)
       setToken(accessToken)
       getUserData(accessToken)
       if (location.state) {
