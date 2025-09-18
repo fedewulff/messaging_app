@@ -9,9 +9,19 @@ function Friends({ user, friends, token, setToken, setChat }) {
   const [showAddFriend, setShowAddFriend] = useState(false)
   const showAddFriendFc = () => setShowAddFriend(!showAddFriend)
 
+  function checkIfAlreadyFriend(array, newFriend) {
+    return array.some((friend) => friend.friend === newFriend)
+  }
   async function sendFriendReq(e, value) {
     e.preventDefault()
+
+    if (checkIfAlreadyFriend(friends, addFriendName)) {
+      console.log(99)
+      setAddFriendName("")
+      return
+    }
     if (user.username === addFriendName) return
+    console.log(addFriendName)
     try {
       const response = await fetch(`${URL}/sendFriendRequest`, {
         method: "POST",

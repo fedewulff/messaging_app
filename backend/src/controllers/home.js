@@ -13,6 +13,14 @@ exports.getUserData = async (req, res) => {
 }
 //SEND FRIEND REQUEST
 exports.postFriendRequest = async (req, res) => {
+  const doesUserExist = await prisma.user.findUnique({
+    where: { username: req.body.addFriendName },
+  })
+  if (!doesUserExist) {
+    res.sendStatus(204)
+    return
+  }
+
   await prisma.friendReq.create({
     data: {
       fromUserId: req.user,
@@ -20,6 +28,7 @@ exports.postFriendRequest = async (req, res) => {
       toUser: req.body.addFriendName,
     },
   })
+
   res.sendStatus(204)
 }
 //GET FRIEND REQUESTS
@@ -38,7 +47,7 @@ exports.postFriend = async (req, res) => {
     res.json({ msg: "already friends" })
     return
   }
-
+  console.log(req.body)
   await prisma.friends.createMany({
     data: [
       {

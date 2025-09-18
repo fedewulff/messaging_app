@@ -5,7 +5,7 @@ import newAccessToken from "../../functions/refreshToken"
 import "../../css/home.css/Chat.css"
 const URL = import.meta.env.VITE_BACKEND_URL
 
-function Chat({ chat, user, token, setToken }) {
+function Chat({ chat, user, token, setToken, setShowFriends }) {
   const navigate = useNavigate()
   const messagesEndRef = useRef(null)
   const [msg, setMsg] = useState("")
@@ -22,6 +22,7 @@ function Chat({ chat, user, token, setToken }) {
       socket.emit("join room", chat.group.name)
       getGroupMessages(token, user.id, chat.group.id)
     }
+    setShowFriends(false)
   }, [chat])
   useEffect(() => {
     if (messagesEndRef.current) {
@@ -173,6 +174,7 @@ function Chat({ chat, user, token, setToken }) {
   return (
     <div className="chat">
       <div className="convContainer">
+        {!chat.friend && !chat.group && <p className="no-open-chat-msg">FW chat app</p>}
         {chat.friend && <div className="friendsName">{chat.friend}</div>}
         {chat.group && <div className="friendsName"> {chat.group.name}</div>}
         <div className="conv">
@@ -189,24 +191,27 @@ function Chat({ chat, user, token, setToken }) {
           )}
           <div ref={messagesEndRef} />
         </div>
-        <form action="message" onSubmit={(e) => sendMessage(e)}>
-          <label htmlFor="message"></label>
-          <textarea
-            name="message"
-            id="message"
-            autoComplete="off"
-            rows={3}
-            maxLength={500}
-            value={msg}
-            onChange={(e) => setMsg(e.target.value)}
-          ></textarea>
-          <button type="submit">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <title>send-variant</title>
-              <path d="M3 20V14L11 12L3 10V4L22 12Z" />
-            </svg>
-          </button>
-        </form>
+
+        {(chat.friend || chat.group) && (
+          <form action="message" onSubmit={(e) => sendMessage(e)}>
+            <label htmlFor="message"></label>
+            <textarea
+              name="message"
+              id="message"
+              autoComplete="off"
+              rows={3}
+              maxLength={500}
+              value={msg}
+              onChange={(e) => setMsg(e.target.value)}
+            ></textarea>
+            <button type="submit">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <title>send-variant</title>
+                <path d="M3 20V14L11 12L3 10V4L22 12Z" />
+              </svg>
+            </button>
+          </form>
+        )}
       </div>
     </div>
   )

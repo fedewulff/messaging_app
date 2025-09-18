@@ -61,6 +61,7 @@ function Home({ token, setToken, showFriends, setShowFriends }) {
       navigate("/")
     }
   }
+
   if (error) return <ErrorRequest status={status} />
   if (loading) return <div className="loading">Loading...</div>
   if (!userData || !token) return
@@ -76,7 +77,7 @@ function Home({ token, setToken, showFriends, setShowFriends }) {
           showFriends={showFriends}
           setShowFriends={setShowFriends}
         />
-        <Chat chat={chat} user={{ id: userData.id, username: userData.username }} token={token} setToken={setToken} />
+        <Chat chat={chat} user={{ id: userData.id, username: userData.username }} token={token} setToken={setToken} setShowFriends={setShowFriends} />
       </div>
     </div>
   )
