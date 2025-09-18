@@ -20,7 +20,6 @@ function App() {
     if (err.message === "Invalid token") refreshToken()
     console.error(err.message)
   })
-
   useEffect(() => {
     if (token) {
       socket.auth.token = token
@@ -30,12 +29,30 @@ function App() {
       socket.disconnect().connect() // To force a reconnection with the new token
     }
   }, [token])
+  useEffect(() => {
+    console.log(12345)
+    const handlePageShow = (event) => {
+      console.log("pageshow event fired!", event)
+      if (event.persisted) {
+        console.log("Page was restored from the back/forward cache.")
+        socket.connect()
+      } else {
+        console.log("Page was loaded or navigated to normally.")
+      }
+    }
+
+    window.addEventListener("pageshow", handlePageShow)
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      window.removeEventListener("pageshow", handlePageShow)
+    }
+  }, [])
 
   if (location.state && !token) {
     setToken(location.state.token)
     return
   }
-
   async function refreshToken() {
     try {
       const accessToken = await newAccessToken()
