@@ -2,11 +2,13 @@ import { useEffect, useState, useRef } from "react"
 import { useNavigate } from "react-router"
 import { socket } from "../../../socket/socket"
 import newAccessToken from "../../functions/refreshToken"
+import useDocumentVisibility from "../../functions/isAppHidden"
 import "../../css/home.css/Chat.css"
 const URL = import.meta.env.VITE_BACKEND_URL
 
 function Chat({ chat, user, token, setToken, setShowFriends }) {
   const navigate = useNavigate()
+  const isVisible = useDocumentVisibility()
   const messagesEndRef = useRef(null)
   const [msg, setMsg] = useState("")
   const [conversation, setConversation] = useState([])
@@ -51,6 +53,13 @@ function Chat({ chat, user, token, setToken, setShowFriends }) {
       socket.off("friend message")
     }
   }, [])
+  useEffect(() => {
+    if (isVisible) {
+      if (!socket.connected) getFriendMessages(token, user.id, chat.friendId)
+    } else {
+      console.log("Document is now hidden!")
+    }
+  }, [isVisible])
   async function getFriendMessages(value, senderId, receiverId) {
     try {
       const response = await fetch(`${URL}/friendMessages/${senderId}/${receiverId}`, {

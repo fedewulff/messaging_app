@@ -3,7 +3,6 @@ import { useParams } from "react-router"
 import { useLocation, useNavigate } from "react-router"
 import "../../css/index.css"
 import newAccessToken from "../../functions/refreshToken"
-import useDocumentVisibility from "../../functions/isAppHidden"
 import Navbar from "../Navbar"
 import Home from "../home/Home"
 import Profile from "../profile/Profile"
@@ -14,7 +13,7 @@ function App() {
   const [token, setToken] = useState("")
   const [showFriends, setShowFriends] = useState(false)
   const { page } = useParams()
-  const isVisible = useDocumentVisibility()
+
   const location = useLocation()
   console.log(token)
 
@@ -28,14 +27,6 @@ function App() {
       socket.disconnect().connect() // To force a reconnection with the new token
     }
   }, [token])
-
-  useEffect(() => {
-    if (isVisible) {
-      if (!socket.connected) socket.connect()
-    } else {
-      console.log("Document is now hidden!")
-    }
-  }, [isVisible])
 
   if (location.state && !token) {
     setToken(location.state.token)
