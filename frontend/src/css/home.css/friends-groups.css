@@ -94,7 +94,10 @@
   list-style-type: none;
   color: var(--white);
   margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 5px;
   cursor: pointer;
+  background: var(--light-blue);
 }
 .friends-groups-list:hover {
   color: var(--yellow);

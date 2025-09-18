@@ -33,7 +33,7 @@ function Chat({ chat, user, token, setToken, setShowFriends }) {
   }, [conversation])
   useEffect(() => {
     socket.on("connect", () => {
-      console.log("disconnected from socket")
+      console.log("connected to socket")
       if (myStateRef.current.group) socket.emit("group name on connect", myStateRef.current.group) //para unir al group room en socket
 
       socket.once("disconnect", () => console.log("disconnected from socket"))
@@ -55,10 +55,10 @@ function Chat({ chat, user, token, setToken, setShowFriends }) {
   }, [])
   useEffect(() => {
     if (isVisible) {
-      if (!socket.connected) getFriendMessages(token, user.id, chat.friendId)
-    } else {
-      console.log("Document is now hidden!")
+      if (!socket.connected && chat.friend) getFriendMessages(token, user.id, chat.friendId)
+      if (!socket.connected && chat.group) getFriendMessages(token, user.id, chat.group.id)
     }
+    return
   }, [isVisible])
   async function getFriendMessages(value, senderId, receiverId) {
     try {

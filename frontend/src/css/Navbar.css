@@ -21,6 +21,9 @@
   flex-shrink: 0;
   padding: 0;
 }
+.navbar .show-friends-and-groups.hide {
+  display: none;
+}
 .navbar button:first-child {
   display: none;
 }

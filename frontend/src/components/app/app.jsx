@@ -15,7 +15,6 @@ function App() {
   const { page } = useParams()
 
   const location = useLocation()
-  console.log(token)
 
   socket.once("connect_error", (err) => {
     if (err.message === "Invalid token") refreshToken()
