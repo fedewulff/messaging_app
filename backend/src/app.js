@@ -19,7 +19,6 @@ io.use((socket, next) => {
   }
   try {
     const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
-    console.log(decoded) // Your secret key
     socket.user = decoded // Attach user data to the socket object
     next()
   } catch (error) {

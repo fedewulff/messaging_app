@@ -3,7 +3,7 @@ const { io } = require("../server")
 
 io.on("connection", (socket) => {
   let groupRoom
-  console.log("connected", socket.id)
+  console.log("connected:", socket.id, "to:", socket.user.id)
   socket.on("group name on connect", (data) => {
     socket.join(data.name)
     groupRoom = data.name
@@ -51,7 +51,7 @@ io.on("connection", (socket) => {
     }
   })
   socket.on("disconnect", () => {
-    console.log("User disconnected:", socket.id)
+    console.log("disconnected:", socket.id, "to:", socket.user.id)
   })
 })
 
