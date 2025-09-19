@@ -4,6 +4,7 @@ import { socket } from "../../../socket/socket"
 import newAccessToken from "../../functions/refreshToken"
 import useDocumentVisibility from "../../functions/isAppHidden"
 import "../../css/home.css/Chat.css"
+import { GiCapybara } from "react-icons/gi"
 const URL = import.meta.env.VITE_BACKEND_URL
 
 function Chat({ chat, user, token, setToken, setShowFriends }) {
@@ -183,7 +184,13 @@ function Chat({ chat, user, token, setToken, setShowFriends }) {
   return (
     <div className="chat">
       <div className="convContainer">
-        {!chat.friend && !chat.group && <p className="no-open-chat-msg">FW chat app</p>}
+        {!chat.friend && !chat.group && (
+          <div className="no-open-chat-container">
+            <GiCapybara className="no-open-chat-icon" />
+            <div className="no-open-chat-title">capybara</div>
+            <p>select friend/group to open chat</p>
+          </div>
+        )}
         {chat.friend && <div className="friendsName">{chat.friend}</div>}
         {chat.group && <div className="friendsName"> {chat.group.name}</div>}
         <div className="conv">

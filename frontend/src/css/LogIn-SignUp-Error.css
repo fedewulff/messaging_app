@@ -1,7 +1,8 @@
-.FWchatapp {
-  color: #af8e5b;
-  padding: 0.5rem;
-  font-size: 1.75rem;
+.capybara-icon {
+  color: var(--yellow);
+  font-size: 4rem;
+  margin-top: 0.25rem;
+  margin-left: 0.25rem;
 }
 
 .formContainer {
@@ -17,7 +18,7 @@
 
 .formContainer form {
   width: 40%;
-  margin-top: 3rem;
+  margin-top: 2.5rem;
   gap: 2rem;
   padding: 3rem 2.5rem;
   color: var(--white);
@@ -129,6 +130,8 @@
   .formContainer form {
     width: 98%;
     padding: 3rem 0.5rem;
+    font-size: 1rem;
+    border: none;
   }
   .formContainer input {
     font-size: 1.25rem;

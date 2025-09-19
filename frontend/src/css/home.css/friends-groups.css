@@ -97,10 +97,14 @@
   padding: 0.5rem;
   border-radius: 5px;
   cursor: pointer;
-  background: var(--light-blue);
+  background-color: rgba(255, 255, 255, 0.103);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 .friends-groups-list:hover {
-  color: var(--yellow);
+  border: 1px solid var(--white);
 }
 
 .friendsNames input:focus-visible,
@@ -180,19 +184,9 @@
 
 @media (max-width: 1200px) {
   .friendsTitle button {
-    font-size: 1.25rem;
-  }
-  .friends-groups-list {
-    font-size: 1rem;
-  }
-}
-@media (max-width: 1200px) {
-  .friendsTitle button {
     font-size: 1.5rem;
   }
-  .friends-groups-list {
-    font-size: 1.25rem;
-  }
+
   .friendsContainer {
     overflow: hidden;
     width: 50%;

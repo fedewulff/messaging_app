@@ -21,17 +21,12 @@
 .friend-group-requests,
 .friend-group-requests {
   font-size: 1.5rem;
+  margin-bottom: 1rem;
 }
 .no-request {
   font-size: 1rem;
   font-weight: 100;
   margin: 0.5rem 0 3rem 0.5rem;
-}
-.friendsReq-list {
-  background: #179dac;
-}
-.groupsReq-list {
-  background: #651da8;
 }
 .friendsReq-list,
 .groupsReq-list {
@@ -42,6 +37,12 @@
   margin: 0.25rem 0;
   padding: 0.5rem;
   border-radius: 0.5rem;
+  border: 1px solid var(--white);
+  background-color: rgba(255, 255, 255, 0.15); /* Semi-transparent background */
+  backdrop-filter: blur(10px); /* Adjust blur strength as needed */
+  border-radius: 10px; /* Optional: Add rounded corners */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Optional: Subtle border */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Soft shadow */
 }
 .friendsReq-list-name,
 .groupReq-list-name,

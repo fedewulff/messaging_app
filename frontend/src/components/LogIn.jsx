@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { NavLink, useNavigate, useLocation } from "react-router"
 import "../css/LogIn-SignUp-Error.css"
+import { GiCapybara } from "react-icons/gi"
 const URL = import.meta.env.VITE_BACKEND_URL
 
 function LogIn() {
@@ -34,7 +35,7 @@ function LogIn() {
 
   return (
     <>
-      <div className="FWchatapp">FW chat app</div>
+      <GiCapybara className="capybara-icon" />
       <div className="formContainer">
         <form action="" method="post" className="vertical" onSubmit={login}>
           <div className="vertical">
