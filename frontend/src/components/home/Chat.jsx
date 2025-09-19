@@ -110,6 +110,7 @@ function Chat({ chat, user, token, setToken, setShowFriends }) {
   }
   function sendMessage(e) {
     e.preventDefault()
+    if (!msg) return
     if (chat.friend) {
       sendFriendMessage(e, token, user.id, chat.friendId, msg)
     }
