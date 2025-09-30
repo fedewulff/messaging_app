@@ -2,7 +2,7 @@
 
 <p align="center">A full-stack messaging app from <a href="https://www.theodinproject.com/lessons/nodejs-messaging-app">Odin</a></p>
 
-## Demo: [Live](messaging-app-frontend-f0xb.onrender.com)
+<h3>Demo: <a href="https://messaging-app-frontend-f0xb.onrender.com">Capybara</a></h3>
 
 ## Frontend built with
 
